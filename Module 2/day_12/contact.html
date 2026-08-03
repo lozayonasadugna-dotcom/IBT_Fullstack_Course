@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Loza Yonas Adugna</title>
+</head>
+<body>
+
+    <header>
+        <h1>Contact Me</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="education.html">Education & Skills</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Get In Touch</h2>
+            <p>Feel free to reach out for opportunities, collaborations, or general inquiries!</p>
+
+            <ul>
+                <li><strong>Location:</strong> Addis Ababa, Ethiopia</li>
+                <li><strong>Email:</strong> <a href="mailto:lozayonasadugna@gmail.com">lozayonasadugna@gmail.com</a></li>
+                <li><strong>Phone:</strong> <a href="tel:0911972647">0911972647</a></li>
+                <li><strong>GitHub:</strong> <a href="https://github.com/lozayonasadugna-dotcom" target="_blank">lozayonasadugna-dotcom</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Send a Message</h2>
+
+            <form action="#" method="POST">
+                <fieldset>
+                    <legend>Contact Form</legend>
+
+                    <p>
+                        <label for="fullname">Full Name:</label><br>
+                        <input type="text" id="fullname" name="fullname" required minlength="2" placeholder="Your Full Name">
+                    </p>
+
+                    <p>
+                        <label for="email">Email Address:</label><br>
+                        <input type="email" id="email" name="email" required placeholder="name@example.com">
+                    </p>
+
+                    <p>
+                        <label for="subject">Reason for Inquiry:</label><br>
+                        <select id="subject" name="subject" required>
+                            <option value="">-- Select an Option --</option>
+                            <option value="job">Job / Internship Opportunity</option>
+                            <option value="project">Project Collaboration</option>
+                            <option value="tutoring">Tutoring Inquiry</option>
+                            <option value="general">General Inquiry</option>
+                        </select>
+                    </p>
+
+                    <p>
+                        <label for="message">Message:</label><br>
+                        <textarea id="message" name="message" rows="5" cols="40" required minlength="10" placeholder="Type your message here..."></textarea>
+                    </p>
+
+                    <button type="submit">Submit Message</button>
+                </fieldset>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Loza Yonas Adugna. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
