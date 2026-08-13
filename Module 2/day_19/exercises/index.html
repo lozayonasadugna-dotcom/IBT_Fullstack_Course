@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 19 DOM Exercises</title>
+  <style>
+    .highlight { background-color: yellow; color: darkblue; padding: 4px; }
+    .card { padding: 20px; border: 2px solid #ccc; margin: 10px 0; }
+  </style>
+</head>
+<body>
+
+  <!-- Exercise 1 -->
+  <h1 id="title">Original Heading</h1>
+
+  <!-- Exercise 2 -->
+  <h2>Ethiopian Cities</h2>
+  <ul id="city-list"></ul>
+
+  <!-- Exercise 3 -->
+  <div id="card-wrapper" class="card">
+    <button id="bubble-btn">Click to Test Bubbling</button>
+  </div>
+
+  <!-- Exercise 4 -->
+  <h2>Delegated Delete List</h2>
+  <ul id="delete-list">
+    <li>Injera <button class="del-btn">Delete</button></li>
+    <li>Shiro <button class="del-btn">Delete</button></li>
+    <li>Coffee <button class="del-btn">Delete</button></li>
+  </ul>
+
+  <!-- Exercise 5 -->
+  <h2>Add New Task</h2>
+  <form id="task-form">
+    <input type="text" id="task-input" placeholder="Enter task item..." required>
+    <button type="submit">Add Task</button>
+  </form>
+  <ul id="dynamic-task-list"></ul>
+
+  <script src="app.js"></script>
+</body>
+</html>

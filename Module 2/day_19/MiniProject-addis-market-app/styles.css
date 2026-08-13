@@ -1,0 +1,147 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f4f6f8;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.app-container {
+  background: #ffffff;
+  width: 100%;
+  max-width: 480px;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+header {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+header h1 {
+  color: #1a252f;
+  font-size: 1.75rem;
+}
+
+header p {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+/* Form Styles */
+#add-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+#add-form input {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+#name {
+  flex: 2;
+}
+
+#price {
+  flex: 1;
+}
+
+#add-form button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#add-form button:hover {
+  background-color: #218838;
+}
+
+/* Shopping List Styles */
+#list {
+  list-style: none;
+  margin-bottom: 1.5rem;
+}
+
+#list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s;
+}
+
+#list li:hover {
+  border-color: #adb5bd;
+}
+
+/* Bought State - Handled strictly via CSS */
+#list li.bought {
+  background-color: #e2e3e5;
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.item-info {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.item-price {
+  font-weight: 600;
+  color: #495057;
+}
+
+/* Delete Button */
+.del {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.del:hover {
+  background-color: #c82333;
+}
+
+/* Total Bar */
+.total-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 2px solid #e9ecef;
+  font-size: 1.1rem;
+  color: #212529;
+}
+
+.total-bar strong {
+  font-size: 1.3rem;
+  color: #28a745;
+}

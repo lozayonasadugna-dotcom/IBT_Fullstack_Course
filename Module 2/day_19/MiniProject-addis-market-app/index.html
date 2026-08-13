@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Addis Market - Shopping List</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-container">
+    <header>
+      <h1>Addis Market</h1>
+      <p>Interactive Shopping List Tracker</p>
+    </header>
+
+    <!-- Item Input Form -->
+    <form id="add-form">
+      <input 
+        type="text" 
+        id="name" 
+        placeholder="Item name (e.g. Bunna)" 
+        required 
+      />
+      <input 
+        type="number" 
+        id="price" 
+        placeholder="Price (ETB)" 
+        min="1" 
+        step="0.01" 
+        required 
+      />
+      <button type="submit">Add Item</button>
+    </form>
+
+    <!-- Dynamic Shopping List Container -->
+    <ul id="list"></ul>
+
+    <!-- Live Running Total Display -->
+    <footer class="total-bar">
+      <span>Total:</span>
+      <div><strong id="total">0.00</strong> ETB</div>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
