@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habesha Eatery | Authentic Ethiopian Dining in Bole</title>
+  <meta name="description" content="Reserve a table at Habesha Eatery in Bole, Addis Ababa. View our traditional menu featuring Doro Wat, Shiro, Tibs, Misir Wat, and Gomen.">
+</head>
+<body>
+
+  <header>
+    <h1>Habesha Eatery</h1>
+  </header>
+
+  <nav aria-label="Main Navigation">
+    <ul>
+      <li><a href="index.html">Reservations</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- SECTION 1: RESERVATION FORM -->
+    <section>
+      <h2>Table Reservation</h2>
+      <form action="/reserve" method="post">
+        <p>
+          <label for="fullname">Full Name</label>
+          <input id="fullname" name="fullname" type="text" required>
+        </p>
+
+        <p>
+          <label for="phone">Phone Number (TeleBirr)</label>
+          <input id="phone" name="phone" type="tel" pattern="\+251[0-9]{9}" placeholder="+251911234567" aria-describedby="phone-note" required>
+          <small id="phone-note">Format: +251 followed by 9 digits</small>
+        </p>
+
+        <p>
+          <label for="guests">Number of Guests</label>
+          <input id="guests" name="guests" type="number" min="1" max="12" required>
+        </p>
+
+        <p>
+          <label for="date">Reservation Date</label>
+          <input id="date" name="date" type="date" required>
+        </p>
+
+        <button type="submit">Book Table</button>
+      </form>
+    </section>
+
+    <!-- SECTION 2: MENU TABLE -->
+    <section>
+      <h2>Our Menu</h2>
+      <table border="1">
+        <caption>Main Dishes &amp; Pricing</caption>
+        <thead>
+          <tr>
+            <th scope="col">Dish</th>
+            <th scope="col">Price (ETB)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Doro Wat</th>
+            <td>320</td>
+          </tr>
+          <tr>
+            <th scope="row">Shiro</th>
+            <td>180</td>
+          </tr>
+          <tr>
+            <th scope="row">Tibs</th>
+            <td>360</td>
+          </tr>
+          <tr>
+            <th scope="row">Misir Wat</th>
+            <td>200</td>
+          </tr>
+          <tr>
+            <th scope="row">Gomen</th>
+            <td>160</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- SECTION 3: MEDIA BLOCK -->
+    <section>
+      <h2>Location &amp; Highlights</h2>
+      <figure>
+        <img src="doro-wat.jpg" alt="A freshly served plate of traditional Doro Wat with hard-boiled eggs served on injera" width="640" height="420" loading="lazy">
+        <figcaption>Freshly prepared traditional Doro Wat served daily in Bole.</figcaption>
+      </figure>
+
+      <iframe src="https://maps.google.com/maps?q=Bole,%20Addis%20Ababa&t=&z=13&ie=UTF8&iwloc=&output=embed" title="Google Map showing the location of Habesha Eatery in Bole, Addis Ababa" width="100%" height="320" loading="lazy"></iframe>
+    </section>
+  </main>
+
+  <footer>
+    <p>Habesha Eatery &bull; Bole, Addis Ababa &bull; +251 911 234 567</p>
+  </footer>
+
+</body>
+</html>
