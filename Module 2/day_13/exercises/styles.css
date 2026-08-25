@@ -1,0 +1,114 @@
+/* ==========================================================================
+   GLOBAL RESET & VARIABLES
+   ========================================================================== */
+:root {
+  /* Exercise 1: Custom Properties */
+  --btn-bg: #1B4D8E;
+  --btn-text: #FFFFFF;
+  --btn-padding: 12px 24px;
+  --font-stack: Arial, Helvetica, sans-serif;
+
+  /* Exercise 5: Palette Variables (Base & Hover Lightness) */
+  --c1-base: hsl(212, 68%, 33%);
+  --c1-hover: hsl(212, 68%, 45%);
+  --c2-base: hsl(42, 69%, 49%);
+  --c2-hover: hsl(42, 69%, 61%);
+  --c3-base: hsl(146, 50%, 36%);
+  --c3-hover: hsl(146, 50%, 48%);
+}
+
+/* ==========================================================================
+   EXERCISE 1: Custom Properties Button
+   ========================================================================== */
+.custom-btn {
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  padding: var(--btn-padding);
+  font-family: var(--font-stack);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   EXERCISE 2: Box Model Cards
+   ========================================================================== */
+.card {
+  width: 300px;
+  padding: 24px;
+  border: 2px solid #1B4D8E;
+  background-color: #F7FAFC;
+}
+
+.content-box {
+  box-sizing: content-box;
+}
+
+.border-box {
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   EXERCISE 3: Specificity Rules
+   ========================================================================== */
+p { color: black; }     /* Score: 0,0,0,1 */
+.note { color: blue; }  /* Score: 0,0,1,0 */
+#lead { color: green; } /* Score: 0,1,0,0 (Highest - Wins) */
+
+/* ==========================================================================
+   EXERCISE 4: Ethiopian Airlines Schedule Table
+   ========================================================================== */
+.ethiopian-table {
+  width: 100%;
+  max-width: 650px;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+}
+
+.ethiopian-table caption {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.ethiopian-table th,
+.ethiopian-table td {
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.ethiopian-table thead tr {
+  background-color: #1B4D8E;
+  color: #FFFFFF;
+}
+
+.ethiopian-table tbody tr:nth-child(even) {
+  background-color: #F7FAFC;
+}
+
+/* ==========================================================================
+   EXERCISE 5: Color System Hover Boxes
+   ========================================================================== */
+.palette-container {
+  display: flex;
+  gap: 12px;
+}
+
+.color-box {
+  padding: 12px 20px;
+  border: none;
+  color: #FFFFFF;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.brand-primary { background-color: var(--c1-base); }
+.brand-primary:hover { background-color: var(--c1-hover); }
+
+.brand-accent { background-color: var(--c2-base); color: #000000; }
+.brand-accent:hover { background-color: var(--c2-hover); }
+
+.brand-dark { background-color: var(--c3-base); }
+.brand-dark:hover { background-color: var(--c3-hover); }

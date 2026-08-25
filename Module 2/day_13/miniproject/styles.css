@@ -1,0 +1,104 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --brand: hsl(212, 68%, 33%);
+  --brand-hover: hsl(212, 68%, 45%);
+  --text-dark: hsl(210, 24%, 16%);
+  --text-muted: hsl(210, 10%, 40%);
+  --bg-page: hsl(210, 20%, 98%);
+  --bg-card: hsl(0, 0%, 100%);
+  --border-color: hsl(214, 32%, 91%);
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --radius-card: 12px;
+  --radius-btn: 6px;
+  --font-main: "Inter", sans-serif;
+}
+
+body {
+  font-family: var(--font-main);
+  line-height: 1.6;
+  background-color: var(--bg-page);
+  color: var(--text-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: var(--space-md);
+}
+
+.card {
+  background-color: var(--bg-card);
+  width: 100%;
+  max-width: 360px;
+  padding: var(--space-lg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.business-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--brand);
+  margin-bottom: var(--space-sm);
+  position: relative;
+}
+
+.business-name::before {
+  content: "";
+  display: block;
+  width: 32px;
+  height: 4px;
+  background-color: var(--brand);
+  border-radius: 2px;
+  margin-bottom: var(--space-sm);
+}
+
+.tagline {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: var(--space-md);
+}
+
+.description {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  margin-bottom: var(--space-sm);
+}
+
+.location-status {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: var(--space-lg);
+}
+
+.btn-contact {
+  width: 100%;
+  padding: 12px var(--space-md);
+  background-color: var(--brand);
+  color: #FFFFFF;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-contact:hover {
+  background-color: var(--brand-hover);
+}
+
+.btn-contact:focus {
+  outline: 3px solid var(--brand-hover);
+  outline-offset: 2px;
+}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- EXERCISE 5: Complete accessible <head> setup -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 13 Exercises | CSS Foundations</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <main>
+    <h1>Day 13 Practice Exercises</h1>
+
+    <!-- EXERCISE 1: CSS Variables & Button -->
+    <section>
+      <h2>Exercise 1: Custom Properties Button</h2>
+      <button class="custom-btn" type="button">Var-Styled Button</button>
+    </section>
+
+    <hr>
+
+    <!-- EXERCISE 2: Box Model Comparison -->
+    <section>
+      <h2>Exercise 2: Box Model (Content-Box vs Border-Box)</h2>
+      <div class="card content-box">
+        <p><strong>content-box:</strong> Sized at 300px width, but renders as 352px wide (300px content + 48px padding + 4px border)[cite: 1].</p>
+      </div>
+      <br>
+      <div class="card border-box">
+        <p><strong>border-box:</strong> Sized at 300px width, and renders at exactly 300px wide because padding and border fold inward[cite: 1].</p>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- EXERCISE 3: Specificity Explanation -->
+    <section>
+      <h2>Exercise 3: Specificity Prediction</h2>
+      <p id="lead" class="note">This paragraph renders <strong>GREEN</strong>.</p>
+      
+      <!-- 
+        SPECIFICITY SCORE EXPLANATION (Inline, ID, Class, Element)[cite: 1]:
+        1. Element rule (p): Score = 0,0,0,1[cite: 1]
+        2. Class rule (.note): Score = 0,0,1,0[cite: 1]
+        3. ID rule (#lead): Score = 0,1,0,0[cite: 1]
+
+        VERDICT: The ID selector (#lead) wins because a higher column score (0,1,0,0) 
+        always beats everything to its right (0,0,1,0 and 0,0,0,1)[cite: 1].
+      -->
+    </section>
+
+    <hr>
+
+    <!-- EXERCISE 4: Ethiopian Airlines Schedule Table -->
+    <section>
+      <h2>Exercise 4: Ethiopian Airlines Table</h2>
+      <table class="ethiopian-table">
+        <caption>Ethiopian Airlines Flight Schedule</caption>
+        <thead>
+          <tr>
+            <th scope="col">Flight</th>
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+            <th scope="col">Departs</th>
+            <th scope="col">Price (ETB)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">ET 302</th>
+            <td>Addis Ababa</td>
+            <td>Nairobi</td>
+            <td>08:15 AM</td>
+            <td>14,500</td>
+          </tr>
+          <tr>
+            <th scope="row">ET 600</th>
+            <td>Addis Ababa</td>
+            <td>Dubai</td>
+            <td>10:30 PM</td>
+            <td>22,000</td>
+          </tr>
+          <tr>
+            <th scope="row">ET 500</th>
+            <td>Addis Ababa</td>
+            <td>Washington D.C.</td>
+            <td>11:00 AM</td>
+            <td>58,000</td>
+          </tr>
+          <tr>
+            <th scope="row">ET 700</th>
+            <td>Addis Ababa</td>
+            <td>London</td>
+            <td>01:45 AM</td>
+            <td>49,500</td>
+          </tr>
+          <tr>
+            <th scope="row">ET 801</th>
+            <td>Addis Ababa</td>
+            <td>Johannesburg</td>
+            <td>09:00 AM</td>
+            <td>28,300</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr>
+
+    <!-- EXERCISE 5: Color Conversion & HSL Lightness -->
+    <section>
+      <h2>Exercise 5: Color Systems &amp; Hover Lightness</h2>
+      <div class="palette-container">
+        <button class="color-box brand-primary" type="button">Primary</button>
+        <button class="color-box brand-accent" type="button">Accent</button>
+        <button class="color-box brand-dark" type="button">Dark</button>
+      </div>
+      <!--
+        COLOR CONVERSIONS & LIGHTNESS MATH[cite: 1]:
+        1. Hex: #1B4D8E -> RGB: rgb(27, 77, 142) -> HSL: hsl(212, 68%, 33%)[cite: 1]
+           Lighter Hover (+12% lightness): hsl(212, 68%, 45%)[cite: 1]
+        2. Hex: #D4A027 -> RGB: rgb(212, 160, 39) -> HSL: hsl(42, 69%, 49%)[cite: 1]
+           Lighter Hover (+12% lightness): hsl(42, 69%, 61%)[cite: 1]
+        3. Hex: #2E8B57 -> RGB: rgb(46, 139, 87) -> HSL: hsl(146, 50%, 36%)[cite: 1]
+           Lighter Hover (+12% lightness): hsl(146, 50%, 48%)[cite: 1]
+      -->
+    </section>
+  </main>
+
+</body>
+</html>
