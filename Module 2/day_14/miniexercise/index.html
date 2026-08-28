@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethio Telecom — Self-Care Portal</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="app">
+
+  <!-- Sticky Header & Navbar -->
+  <header class="site-header">
+    <div class="brand">
+      <span class="logo-icon">ethio</span>
+      <span class="brand-name">telecom</span>
+    </div>
+    <nav class="navbar">
+      <a href="#" class="active">Dashboard</a>
+      <a href="#">Packages</a>
+      <a href="#">Bill Pay</a>
+      <div class="user-profile">
+        <span class="notification-icon">
+          🔔
+          <span class="badge-dot"></span> <!-- Absolute positioned element -->
+        </span>
+        <span class="username">0911 *** ***</span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Sidebar Filter & Navigation Panel -->
+  <aside class="site-sidebar">
+    <h3>Account Services</h3>
+    <ul class="sidebar-menu">
+      <li class="active">Overview</li>
+      <li>Voice & Data Bundles</li>
+      <li>Telebirr Account</li>
+      <li>Usage History</li>
+      <li>Support & FAQs</li>
+    </ul>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="site-main">
+
+    <!-- Flexbox Toolbar / Stat Row -->
+    <section class="stat-row">
+      <div class="stat-card">
+        <span class="stat-title">Airtime Balance</span>
+        <span class="stat-value">ETB 145.50</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-title">Data Remaining</span>
+        <span class="stat-value">12.4 GB</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-title">Voice Minutes</span>
+        <span class="stat-value">180 Mins</span>
+      </div>
+    </section>
+
+    <!-- Auto-Fit Responsive Card Grid -->
+    <section class="packages-section">
+      <h2>Recommended Packages</h2>
+      <div class="cards-grid">
+        
+        <article class="package-card">
+          <span class="promo-badge">BEST VALUE</span> <!-- Absolute badge on relative parent -->
+          <h3>Monthly Unlimited Data</h3>
+          <p class="pack-detail">High-speed 4G LTE internet for 30 days.</p>
+          <div class="card-footer">
+            <span class="price">ETB 490</span>
+            <button class="buy-btn">Buy Now</button>
+          </div>
+        </article>
+
+        <article class="package-card">
+          <h3>Weekly Voice & Data Combo</h3>
+          <p class="pack-detail">2GB Data + 100 Mins local calls.</p>
+          <div class="card-footer">
+            <span class="price">ETB 150</span>
+            <button class="buy-btn">Buy Now</button>
+          </div>
+        </article>
+
+        <article class="package-card">
+          <span class="promo-badge HOT">POPULAR</span> <!-- Absolute badge on relative parent -->
+          <h3>Daily Night Heavy Data</h3>
+          <p class="pack-detail">Unlimited downloads from 11 PM to 6 AM.</p>
+          <div class="card-footer">
+            <span class="price">ETB 35</span>
+            <button class="buy-btn">Buy Now</button>
+          </div>
+        </article>
+
+        <article class="package-card">
+          <h3>Weekend Special Pack</h3>
+          <p class="pack-detail">5GB valid Saturday through Sunday night.</p>
+          <div class="card-footer">
+            <span class="price">ETB 90</span>
+            <button class="buy-btn">Buy Now</button>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Page Footer -->
+  <footer class="site-footer">
+    <p>&copy; 2026 Ethio Telecom. All Rights Reserved. | Rebuilt for CodeOps Module 2 Day 14</p>
+  </footer>
+
+</body>
+</html>
