@@ -1,0 +1,55 @@
+[
+  {
+    "id": 1,
+    "routeNumber": "Route 12",
+    "origin": "Megenagna",
+    "destination": "Piazza",
+    "via": "Arat Kilo and English Church",
+    "fare": 15,
+    "scheduleMinutes": 10
+  },
+  {
+    "id": 2,
+    "routeNumber": "Route 05",
+    "origin": "Bole",
+    "destination": "Mexico",
+    "fare": 10,
+    "scheduleMinutes": 15
+  },
+  {
+    "id": 3,
+    "routeNumber": "Route 08",
+    "origin": "Ayat",
+    "destination": "Megenagna",
+    "via": "CMC and Summit Avenue",
+    "fare": 15,
+    "scheduleMinutes": 7
+  },
+  {
+    "id": 4,
+    "routeNumber": "Route 14",
+    "origin": "Kera",
+    "destination": "Lafto",
+    "via": "Mexico Square and Sarbet",
+    "fare": 12,
+    "scheduleMinutes": 12
+  },
+  {
+    "id": 5,
+    "routeNumber": "Route 22",
+    "origin": "Tulu Dimtu",
+    "destination": "Megenagna",
+    "via": "Gotera Interchange and Bole Road",
+    "fare": 20,
+    "scheduleMinutes": 15
+  },
+  {
+    "id": 6,
+    "routeNumber": "Route 30",
+    "origin": "Mexico",
+    "destination": "Kality",
+    "via": "Saris and Meshualekia",
+    "fare": 18,
+    "scheduleMinutes": 10
+  }
+]
