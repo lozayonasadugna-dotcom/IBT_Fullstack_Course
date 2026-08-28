@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sheger Transit</title>
+  
+  <!-- FontAwesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+    :root {
+      --primary: #0f172a;
+      --primary-accent: #2563eb;
+      --accent-gold: #f59e0b;
+      --accent-emerald: #10b981;
+      --bg-main: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-light: #e2e8f0;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-hover: 0 10px 20px rgba(37, 99, 235, 0.12);
+      --radius-lg: 12px;
+      --radius-md: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body.app-layout {
+      display: flex;
+      min-height: 100vh;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+    }
+
+    .left-sidebar {
+      width: 250px;
+      background: var(--primary);
+      color: white;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 100;
+    }
+
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .sidebar-menu { display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.75rem 1rem;
+      color: #94a3b8;
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item:hover, .nav-item.active { background: #1e293b; color: #38bdf8; }
+    .sidebar-footer { margin-top: auto; }
+    .full-width { width: 100%; }
+
+    .btn {
+      padding: 0.65rem 1rem;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary { background: var(--primary-accent); color: white; }
+
+    .main-wrapper {
+      margin-left: 250px;
+      flex: 1;
+      padding: 2rem;
+      max-width: calc(100vw - 250px);
+    }
+
+    .top-header { margin-bottom: 1.5rem; }
+    .search-wrapper { position: relative; max-width: 600px; }
+    .search-wrapper input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      font-size: 0.95rem;
+      outline: none;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .planner-section, .map-section, .favorites-section, .routes-section {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .planner-controls { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end; margin-top: 1rem; }
+    .planner-field { display: flex; flex-direction: column; gap: 0.35rem; flex: 1; min-width: 180px; }
+    .planner-field label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+    .planner-field select { padding: 0.65rem; border-radius: var(--radius-md); border: 1px solid var(--border-light); background: var(--bg-main); font-size: 0.95rem; outline: none; }
+    .planner-result { margin-top: 1rem; padding: 0.85rem; border-radius: var(--radius-md); background: #f1f5f9; font-weight: 500; }
+
+    .section-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .live-status { font-size: 0.825rem; color: var(--accent-emerald); font-weight: 600; display: flex; align-items: center; gap: 0.4rem; }
+    .pulse-dot { width: 8px; height: 8px; background-color: var(--accent-emerald); border-radius: 50%; }
+    .map-container { height: 280px; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-light); }
+
+    #routes-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.25rem; margin-top: 1rem; }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+    .card h3 { color: var(--primary-accent); font-size: 1.1rem; }
+    .card p { font-size: 0.9rem; color: var(--text-muted); }
+    .card p strong { color: var(--text-main); }
+
+    .route-via { font-size: 0.825rem; color: var(--primary-accent); font-weight: 500; }
+    .route-via span { color: var(--text-main); }
+
+    .countdown-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #fef3c7;
+      color: #92400e;
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      width: fit-content;
+    }
+
+    .card button {
+      margin-top: auto;
+      padding: 0.6rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+      background: var(--bg-main);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .card button:hover { background: var(--primary-accent); color: white; border-color: var(--primary-accent); }
+
+    .fav-item { background: var(--bg-main); padding: 0.75rem; border-radius: var(--radius-md); margin-top: 0.5rem; font-size: 0.875rem; border-left: 4px solid var(--accent-gold); }
+
+    /* Modal Overlay & Card */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal-card { background: white; width: 90%; max-width: 400px; padding: 1.5rem; border-radius: var(--radius-lg); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
+    .close-modal { background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
+    
+    /* Form & Error Styles */
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+    .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+    .form-group input, .form-group select { padding: 0.65rem; border: 1px solid var(--border-light); border-radius: var(--radius-md); font-size: 0.95rem; outline: none; }
+    .error { color: #ef4444; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; min-height: 1.2rem; }
+
+    .view-section.hidden { display: none !important; }
+
+    /* Mobile Responsive Sidebar */
+    @media (max-width: 768px) {
+      body.app-layout { flex-direction: column; }
+      .left-sidebar { width: 100%; height: auto; position: relative; }
+      .main-wrapper { margin-left: 0; max-width: 100vw; padding: 1rem; }
+    }
+  </style>
+</head>
+<body class="app-layout">
+
+  <!-- Left Sidebar -->
+  <aside class="left-sidebar">
+    <div class="sidebar-brand">
+      <span>🚍 Sheger <strong>Transit</strong></span>
+    </div>
+
+    <nav class="sidebar-menu">
+      <a href="#" class="nav-item active" data-view="home">🏠 <span>Home</span></a>
+      <a href="#" class="nav-item" data-view="routes">🗺️ <span>All Routes</span></a>
+      <a href="#" class="nav-item" data-view="planner">🧮 <span>Trip Planner</span></a>
+      <a href="#" class="nav-item" data-view="favorites">🔖 <span>Favorites</span></a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="btn btn-primary full-width" id="signin-btn">👤 Sign In</button>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="main-wrapper">
+    <header class="top-header">
+      <div class="search-wrapper">
+        <input type="text" id="search" placeholder="🔍 Search route number, origin, destination, or via route...">
+      </div>
+    </header>
+
+    <main class="content-area">
+      <!-- Section: Trip Planner -->
+      <section class="planner-section view-section" id="section-planner">
+        <h2>🧮 Fare Calculator & Trip Planner</h2>
+        <div class="planner-controls">
+          <div class="planner-field">
+            <label for="origin-select">Origin:</label>
+            <select id="origin-select"><option value="">-- Select Origin --</option></select>
+          </div>
+          <div class="planner-field">
+            <label for="destination-select">Destination:</label>
+            <select id="destination-select"><option value="">-- Select Destination --</option></select>
+          </div>
+          <button id="calculate-btn" class="btn btn-primary">Calculate Fare</button>
+        </div>
+        <div id="planner-result" class="planner-result"></div>
+      </section>
+
+      <!-- Section: Map -->
+      <section class="map-section view-section" id="section-map">
+        <div class="section-title">
+          <h2>📍 Live Transit Map</h2>
+          <span class="live-status"><span class="pulse-dot"></span> Addis Ababa Grid</span>
+        </div>
+        <div class="map-container">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126105.70817088118!2d38.70622285!3d9.0107934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b85cef5ab402d%3A0x8467b6b037a24d49!2sAddis%20Ababa!5e0!3m2!1sen!2set!4v1710000000000!5m2!1sen!2set" 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy">
+          </iframe>
+        </div>
+      </section>
+
+      <!-- Section: Routes -->
+      <section class="routes-section view-section" id="section-routes">
+        <h2>🚌 Transit Routes</h2>
+        <div id="routes-container"></div>
+      </section>
+
+      <!-- Section: Favorites -->
+      <section class="favorites-section view-section" id="section-favorites">
+        <h2>🔖 Favorites & Checkout</h2>
+        <div id="favorites-container"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Sign In Modal -->
+  <div class="modal-overlay" id="auth-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Sign In to Sheger Transit</h3>
+        <button class="close-modal" id="close-modal">&times;</button>
+      </div>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required placeholder="name@example.com">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" required placeholder="••••••••">
+        </div>
+        <button type="submit" class="btn btn-primary full-width">Sign In</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Day 24 Checkout / Pass Booking Modal -->
+  <div class="modal-overlay" id="booking-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Book Transit Pass (TeleBirr)</h3>
+        <button class="close-modal" id="close-booking-modal">&times;</button>
+      </div>
+      <form id="checkout-form" novalidate>
+        <div class="form-group">
+          <label for="passenger-name">Full Name</label>
+          <input type="text" id="passenger-name" placeholder="e.g. Abebe Bikila">
+        </div>
+        <div class="form-group">
+          <label for="passenger-phone">TeleBirr Mobile Number</label>
+          <input type="tel" id="passenger-phone" placeholder="09xxxxxxxx or +2519xxxxxxxx">
+        </div>
+        <!-- Single accessible error region -->
+        <p id="form-error" class="error" aria-live="polite"></p>
+        <button type="submit" class="btn btn-primary full-width">Confirm & Pay Pass</button>
+      </form>
+    </div>
+  </div>
+  <form id="checkout" novalidate>
+  <label for="name">Name</label>
+  <input id="name" required placeholder="Full Name" />
+
+  <label for="phone">Phone (TeleBirr)</label>
+  <input id="phone" placeholder="09xxxxxxxx" />
+
+  <!-- Single error region announced by screen readers -->
+  <p id="form-error" class="error" aria-live="polite"></p>
+  
+  <button type="submit">Place Order / Book Pass</button>
+</form>
+
+  <script src="app.js"></script>
+</body>
+</html>
