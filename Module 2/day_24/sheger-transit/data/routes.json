@@ -4,8 +4,8 @@
     "routeNumber": "Route 12",
     "origin": "Megenagna",
     "destination": "Piazza",
-    "via": "Arat Kilo and English Church",
-    "fare": 15,
+    "via": "Arat Kilo and English Embassy",
+    "fare": 20,
     "scheduleMinutes": 10
   },
   {
@@ -13,7 +13,8 @@
     "routeNumber": "Route 05",
     "origin": "Bole",
     "destination": "Mexico",
-    "fare": 10,
+    "via": "Meskel Square and Flamingo",
+    "fare": 25,
     "scheduleMinutes": 15
   },
   {
@@ -22,7 +23,7 @@
     "origin": "Ayat",
     "destination": "Megenagna",
     "via": "CMC and Summit Avenue",
-    "fare": 15,
+    "fare": 30,
     "scheduleMinutes": 7
   },
   {
@@ -31,7 +32,7 @@
     "origin": "Kera",
     "destination": "Lafto",
     "via": "Mexico Square and Sarbet",
-    "fare": 12,
+    "fare": 20,
     "scheduleMinutes": 12
   },
   {
@@ -40,7 +41,7 @@
     "origin": "Tulu Dimtu",
     "destination": "Megenagna",
     "via": "Gotera Interchange and Bole Road",
-    "fare": 20,
+    "fare": 45,
     "scheduleMinutes": 15
   },
   {
@@ -49,7 +50,43 @@
     "origin": "Mexico",
     "destination": "Kality",
     "via": "Saris and Meshualekia",
-    "fare": 18,
+    "fare": 35,
     "scheduleMinutes": 10
+  },
+  {
+    "id": 7,
+    "routeNumber": "Route 01",
+    "origin": "Mexico",
+    "destination": "Torhailoch",
+    "via": "Lideta and Tegbare-id",
+    "fare": 20,
+    "scheduleMinutes": 8
+  },
+  {
+    "id": 8,
+    "routeNumber": "Route 02",
+    "origin": "Megenagna",
+    "destination": "Merkato",
+    "via": "Arat Kilo and Teklehaimanot",
+    "fare": 25,
+    "scheduleMinutes": 10
+  },
+  {
+    "id": 9,
+    "routeNumber": "Route 03",
+    "origin": "Mexico",
+    "destination": "Jemo",
+    "via": "Bisrate Gabriel and Lebu",
+    "fare": 40,
+    "scheduleMinutes": 12
+  },
+  {
+    "id": 10,
+    "routeNumber": "Route 04",
+    "origin": "Stadium",
+    "destination": "Kality",
+    "via": "Gotera and Saris",
+    "fare": 25,
+    "scheduleMinutes": 12
   }
 ]

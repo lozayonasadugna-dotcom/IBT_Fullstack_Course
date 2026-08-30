@@ -1,253 +1,298 @@
-// Top-Level Lifted Named Constants
-const STORAGE_KEY = "sheger_transit_favorites";
-const PHONE_REGEX = /^(?:\+251|0)9\d{8}$/;
-const DEFAULT_INTERVAL_MINS = 10;
-const REFRESH_RATE_MS = 60000;
-
-// Application Central State
 const state = {
-  routes: [],
+  routes: [
+    { id: 1, routeNumber: "Route 12", origin: "Megenagna", destination: "Piazza", via: "Arat Kilo and English Church", fare: 15, scheduleMinutes: 10 },
+    { id: 2, routeNumber: "Route 05", origin: "Bole", destination: "Mexico", fare: 10, scheduleMinutes: 15 },
+    { id: 3, routeNumber: "Route 08", origin: "Ayat", destination: "Megenagna", via: "CMC and Summit Avenue", fare: 15, scheduleMinutes: 7 },
+    { id: 4, routeNumber: "Route 14", origin: "Kera", destination: "Lafto", via: "Mexico Square and Sarbet", fare: 12, scheduleMinutes: 12 },
+    { id: 5, routeNumber: "Route 22", origin: "Tulu Dimtu", destination: "Megenagna", via: "Gotera Interchange and Bole Road", fare: 20, scheduleMinutes: 15 },
+    { id: 6, routeNumber: "Route 30", origin: "Mexico", destination: "Kality", via: "Saris and Meshualekia", fare: 18, scheduleMinutes: 10 },
+    { id: 7, routeNumber: "Route 01", origin: "Mexico", destination: "Torhailoch", fare: 10, scheduleMinutes: 8 },
+    { id: 8, routeNumber: "Route 02", origin: "Megenagna", destination: "Merkato", fare: 15, scheduleMinutes: 10 },
+    { id: 9, routeNumber: "Route 03", origin: "Mexico", destination: "Jemo", fare: 15, scheduleMinutes: 12 },
+    { id: 10, routeNumber: "Route 04", origin: "Stadium", destination: "Kality", via: "Saris", fare: 15, scheduleMinutes: 12 }
+  ],
   favorites: [],
+  history: [],
   search: "",
   activeView: "home"
 };
 
-// Persistence Handlers
 function save() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.favorites));
+  localStorage.setItem("sheger_favorites", JSON.stringify(state.favorites));
+  localStorage.setItem("sheger_history", JSON.stringify(state.history));
 }
 
 function load() {
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if (saved) {
-    try {
-      state.favorites = JSON.parse(saved);
-    } catch (err) {
-      state.favorites = [];
-    }
-  }
+  const savedFavs = localStorage.getItem("sheger_favorites");
+  if (savedFavs) state.favorites = JSON.parse(savedFavs);
+
+  const savedHist = localStorage.getItem("sheger_history");
+  if (savedHist) state.history = JSON.parse(savedHist);
 }
 
-// Helpers & Calculations
 function getNextDeparture(interval) {
-  const safeInterval = interval || DEFAULT_INTERVAL_MINS;
   const now = new Date();
   const minutes = now.getMinutes();
-  const remaining = safeInterval - (minutes % safeInterval);
-  return remaining === 0 ? safeInterval : remaining;
+  const remaining = interval - (minutes % interval);
+  return remaining === 0 ? interval : remaining;
 }
 
-// Day 24 Pure Validation Function
-function validate({ name, phone }) {
-  if (!name.trim()) return "Please enter your full name.";
-  if (!PHONE_REGEX.test(phone.trim())) return "Enter a valid Ethiopian phone number (e.g., 0911223344 or +251911223344).";
-  if (state.favorites.length === 0) return "Your saved favorites list is empty. Add a route before checkout.";
-  return "";
-}
+function setupPlannerOptions() {
+  const origins = [...new Set(state.routes.map(r => r.origin))];
+  const destinations = [...new Set(state.routes.map(r => r.destination))];
 
-// Extracted Render Functions with Guard Clauses
-function renderRoutes() {
-  const container = document.querySelector("#routes-container");
-  if (!container) return; // Guard clause
+  const originSelect = document.querySelector("#origin-select");
+  const destSelect = document.querySelector("#destination-select");
 
-  const term = state.search.toLowerCase().trim();
-  const filtered = state.routes.filter(r => {
-    return (r.routeNumber?.toLowerCase().includes(term)) ||
-           (r.origin?.toLowerCase().includes(term)) ||
-           (r.destination?.toLowerCase().includes(term)) ||
-           (r.via?.toLowerCase().includes(term));
-  });
+  if (originSelect && destSelect) {
+    originSelect.innerHTML = `<option value="">-- Select Origin --</option>` + 
+      origins.map(o => `<option value="${o}">${o}</option>`).join("");
 
-  // Guard clause for empty search results
-  if (filtered.length === 0) {
-    container.innerHTML = `<p class="empty" style="grid-column: 1/-1; padding: 1rem; color: #64748b;">No transit routes found matching "${state.search}".</p>`;
-    return;
+    destSelect.innerHTML = `<option value="">-- Select Destination --</option>` + 
+      destinations.map(d => `<option value="${d}">${d}</option>`).join("");
   }
-
-  container.innerHTML = filtered.map(r => {
-    const isFav = state.favorites.some(f => f.id === r.id);
-    const nextMins = getNextDeparture(r.scheduleMinutes);
-    const viaText = r.via ? `<p class="route-via"><i class="fa-solid fa-map-pin"></i> Via: <span>${r.via}</span></p>` : "";
-    
-    return `
-      <article class="card" data-id="${r.id}">
-        <h3>${r.routeNumber}</h3>
-        <p><strong>${r.origin}</strong> ➔ <strong>${r.destination}</strong></p>
-        ${viaText}
-        <p>Fare: <strong>${r.fare} ETB</strong></p>
-        <div class="countdown-badge">
-          <i class="fa-regular fa-clock"></i> Next bus in ${nextMins} mins
-        </div>
-        <button class="fav-btn" onclick="toggleFavorite(${r.id})">${isFav ? "★ Saved" : "☆ Save Favorite"}</button>
-      </article>
-    `;
-  }).join("");
-}
-
-function renderFavorites() {
-  const favContainer = document.querySelector("#favorites-container");
-  if (!favContainer) return; // Guard clause
-
-  // Guard clause for empty favorites cart
-  if (state.favorites.length === 0) {
-    favContainer.innerHTML = `<p class="empty" style="color: #64748b;">No saved favorites yet. Save routes to book a pass.</p>`;
-    return;
-  }
-
-  const totalFare = state.favorites.reduce((sum, item) => sum + (item.fare || 0), 0);
-  favContainer.innerHTML = `
-    <div style="margin-bottom: 1rem;">
-      <p style="font-size: 1.1rem;">Total Saved Fare: <strong style="color: #2563eb;">${totalFare} ETB</strong></p>
-      <button class="btn btn-primary" id="open-booking-btn" style="margin-top: 0.75rem;">Proceed to Checkout</button>
-    </div>
-    ${state.favorites.map(f => `
-      <div class="fav-item">
-        • <strong>${f.routeNumber}</strong> (${f.origin} to ${f.destination}) - ${f.fare} ETB
-      </div>
-    `).join("")}
-  `;
-
-  document.querySelector("#open-booking-btn")?.addEventListener("click", () => {
-    document.querySelector("#booking-modal")?.classList.add("active");
-  });
 }
 
 function updateViewVisibility() {
-  const views = {
-    home: ["#section-map", "#section-routes"],
-    routes: ["#section-routes"],
-    planner: ["#section-planner"],
-    favorites: ["#section-favorites"]
-  };
+  const views = [
+    { id: "#section-planner", view: ["home", "planner"] },
+    { id: "#section-map", view: ["home"] },
+    { id: "#section-routes", view: ["home", "routes"] },
+    { id: "#section-favorites", view: ["favorites"] },
+    { id: "#section-history", view: ["history"] },
+    { id: "#section-payment", view: ["payment"] },
+    { id: "#section-support", view: ["support"] },
+    { id: "#section-profile", view: ["profile"] }
+  ];
 
-  document.querySelectorAll(".view-section").forEach(sec => sec.classList.add("hidden"));
-  const activeSections = views[state.activeView] || views.home;
-  activeSections.forEach(id => document.querySelector(id)?.classList.remove("hidden"));
-
-  document.querySelectorAll(".nav-item").forEach(nav => {
-    nav.classList.toggle("active", nav.dataset.view === state.activeView);
+  views.forEach(v => {
+    const el = document.querySelector(v.id);
+    if (!el) return;
+    if (v.view.includes(state.activeView)) {
+      el.classList.remove("hidden");
+    } else {
+      el.classList.add("hidden");
+    }
   });
 }
 
 function render() {
   updateViewVisibility();
-  renderRoutes();
-  renderFavorites();
-}
 
-// Global Actions
-window.toggleFavorite = function(routeId) {
-  const route = state.routes.find(r => r.id === routeId);
-  if (!route) return;
+  const container = document.querySelector("#routes-container");
+  const favContainer = document.querySelector("#favorites-container");
+  const historyContainer = document.querySelector("#history-container");
+  const term = state.search.toLowerCase();
 
-  const existsIndex = state.favorites.findIndex(f => f.id === routeId);
-  if (existsIndex > -1) {
-    state.favorites.splice(existsIndex, 1);
-  } else {
-    state.favorites.push(route);
+  const filtered = state.routes.filter(r => {
+    return r.routeNumber.toLowerCase().includes(term) ||
+           r.origin.toLowerCase().includes(term) ||
+           r.destination.toLowerCase().includes(term) ||
+           (r.via && r.via.toLowerCase().includes(term));
+  });
+
+  if (container) {
+    if (filtered.length === 0) {
+      container.innerHTML = `<p class="empty">No routes found matching search.</p>`;
+    } else {
+      container.innerHTML = filtered.map(r => {
+        const isFav = state.favorites.some(f => f.id === r.id);
+        const nextMins = getNextDeparture(r.scheduleMinutes || 10);
+        
+        return `
+          <article class="card" data-id="${r.id}">
+            <h3>${r.routeNumber}</h3>
+            <p><strong>${r.origin}</strong> ➔ <strong>${r.destination}</strong></p>
+            ${r.via ? `<p class="route-via">Via: <span>${r.via}</span></p>` : ""}
+            <p>Fare: <strong>${r.fare} ETB</strong></p>
+            <div class="countdown-badge">
+              <i class="fa-regular fa-clock"></i> Next bus in ${nextMins} mins
+            </div>
+            <button class="fav-btn">${isFav ? "★ Saved" : "☆ Save Favorite"}</button>
+          </article>
+        `;
+      }).join("");
+    }
   }
-  
-  save();
-  render();
-};
 
-function setupPlannerOptions() {
-  const originSelect = document.querySelector("#origin-select");
-  const destSelect = document.querySelector("#destination-select");
-  if (!originSelect || !destSelect) return;
+  if (favContainer) {
+    if (state.favorites.length === 0) {
+      favContainer.innerHTML = `<p class="empty">No saved routes yet.</p>`;
+    } else {
+      const totalFare = state.favorites.reduce((sum, item) => sum + item.fare, 0);
+      favContainer.innerHTML = `
+        <p style="margin-bottom: 0.5rem;">Total Fare: <strong>${totalFare} ETB</strong></p>
+        ${state.favorites.map(f => `
+          <div class="fav-item">
+            • <strong>${f.routeNumber}</strong> (${f.origin} to ${f.destination}) ${f.via ? `- Via ${f.via}` : ""} - ${f.fare} ETB
+          </div>
+        `).join("")}
+      `;
+    }
+  }
 
-  const origins = [...new Set(state.routes.map(r => r.origin))];
-  const dests = [...new Set(state.routes.map(r => r.destination))];
-
-  originSelect.innerHTML = `<option value="">-- Select Origin --</option>` + origins.map(o => `<option value="${o}">${o}</option>`).join("");
-  destSelect.innerHTML = `<option value="">-- Select Destination --</option>` + dests.map(d => `<option value="${d}">${d}</option>`).join("");
+  if (historyContainer) {
+    if (state.history.length === 0) {
+      historyContainer.innerHTML = `<p class="empty" style="color: var(--text-muted);">No past orders found.</p>`;
+    } else {
+      historyContainer.innerHTML = state.history.map(h => `
+        <div class="history-item">
+          <p><strong>Pass Order #${h.id}</strong> - ${h.total} ETB</p>
+          <p style="font-size: 0.8rem; color: var(--text-muted);">${new Date(h.placedAt).toLocaleString()}</p>
+        </div>
+      `).join("");
+    }
+  }
 }
 
-// Event Listeners
-document.querySelectorAll(".nav-item").forEach(item => {
+// Collapsible Sidebar Drawer Handlers
+const sidebar = document.querySelector("#left-sidebar");
+const overlay = document.querySelector("#sidebar-overlay");
+
+function toggleSidebar() {
+  sidebar?.classList.toggle("active");
+  overlay?.classList.toggle("active");
+}
+
+document.querySelector("#menu-toggle-btn")?.addEventListener("click", toggleSidebar);
+document.querySelector("#close-sidebar-btn")?.addEventListener("click", toggleSidebar);
+overlay?.addEventListener("click", toggleSidebar);
+
+// Navigation View Switcher
+document.querySelectorAll(".sidebar-menu .nav-item").forEach(item => {
   item.addEventListener("click", (e) => {
     e.preventDefault();
+    document.querySelectorAll(".sidebar-menu .nav-item").forEach(i => i.classList.remove("active"));
+    item.classList.add("active");
+
     state.activeView = item.dataset.view;
     render();
+    toggleSidebar();
   });
 });
 
-document.querySelector("#search")?.addEventListener("input", (e) => {
-  state.search = e.target.value;
-  renderRoutes();
-});
+// Modal Handlers
+const authModal = document.querySelector("#auth-modal");
+const bookingModal = document.querySelector("#booking-modal");
 
+document.querySelector("#signin-btn")?.addEventListener("click", () => authModal?.classList.add("active"));
+document.querySelector("#close-modal")?.addEventListener("click", () => authModal?.classList.remove("active"));
+
+document.querySelector("#open-booking-btn")?.addEventListener("click", () => bookingModal?.classList.add("active"));
+document.querySelector("#close-booking-modal")?.addEventListener("click", () => bookingModal?.classList.remove("active"));
+
+// Trip Planner Calculation
 document.querySelector("#calculate-btn")?.addEventListener("click", () => {
-  const origin = document.querySelector("#origin-select")?.value;
-  const dest = document.querySelector("#destination-select")?.value;
-  const resultEl = document.querySelector("#planner-result");
+  const origin = document.querySelector("#origin-select").value;
+  const destination = document.querySelector("#destination-select").value;
+  const resultDiv = document.querySelector("#planner-result");
 
-  if (!origin || !dest) {
-    resultEl.textContent = "Please select both origin and destination.";
+  if (!origin || !destination) {
+    resultDiv.innerHTML = `<span style="color: #ef4444;">Please select both origin and destination.</span>`;
     return;
   }
 
-  const found = state.routes.find(r => r.origin === origin && r.destination === dest);
-  if (found) {
-    resultEl.innerHTML = `Direct Route Available: <strong>${found.routeNumber}</strong> | Fare: <strong>${found.fare} ETB</strong>`;
+  const matches = state.routes.filter(r => r.origin === origin && r.destination === destination);
+  if (matches.length > 0) {
+    resultDiv.innerHTML = matches.map(m => 
+      `Direct Route Found: <strong>${m.routeNumber}</strong> | Fare: <strong>${m.fare} ETB</strong> ${m.via ? `(Via ${m.via})` : ""}`
+    ).join("<br>");
   } else {
-    resultEl.textContent = "No direct route found between selected points.";
+    resultDiv.innerHTML = `No direct bus found between ${origin} and ${destination}.`;
   }
 });
 
-// Day 24 Checkout Form & Modal Handlers
-const bookingModal = document.querySelector("#booking-modal");
-document.querySelector("#close-booking-modal")?.addEventListener("click", () => {
-  bookingModal?.classList.remove("active");
+// Search & Favorites
+document.querySelector("#search")?.addEventListener("input", (e) => {
+  state.search = e.target.value;
+  render();
 });
 
-document.querySelector("#checkout")?.addEventListener("submit", (e) => {
+document.querySelector("#routes-container")?.addEventListener("click", (e) => {
+  if (!e.target.matches(".fav-btn")) return;
+  const card = e.target.closest(".card");
+  const id = Number(card.dataset.id);
+  const route = state.routes.find(r => r.id === id);
+  const existingIndex = state.favorites.findIndex(f => f.id === id);
+
+  if (existingIndex > -1) {
+    state.favorites.splice(existingIndex, 1);
+  } else {
+    state.favorites.push(route);
+  }
+
+  save();
+  render();
+});
+
+// Checkout Order Handler
+document.querySelector("#checkout-form")?.addEventListener("submit", (e) => {
   e.preventDefault();
   const name = document.querySelector("#passenger-name").value;
   const phone = document.querySelector("#passenger-phone").value;
   const errorEl = document.querySelector("#form-error");
 
-  const errorMsg = validate({ name, phone });
-  if (errorMsg) {
-    errorEl.textContent = errorMsg;
-    return; // Stop execution on error
+  if (!name.trim() || !phone.trim()) {
+    errorEl.textContent = "Please fill in all details.";
+    return;
   }
 
-  errorEl.textContent = "";
-
   const order = {
-    name: name.trim(),
-    phone: phone.trim(),
-    items: state.favorites,
-    total: state.favorites.reduce((sum, item) => sum + (item.fare || 0), 0),
+    id: Math.floor(1000 + Math.random() * 9000),
+    passengerName: name,
+    phone: phone,
+    items: [...state.favorites],
+    total: state.favorites.reduce((sum, item) => sum + item.fare, 0),
     placedAt: new Date().toISOString()
   };
 
-  // State mutation, local persistence, and user feedback
-  alert(`Pass Booked Successfully!\n\nPassenger: ${order.name}\nPhone: ${order.phone}\nTotal Paid: ${order.total} ETB`);
-  
+  state.history.unshift(order);
   state.favorites = [];
   save();
-  bookingModal?.classList.remove("active");
   render();
+
+  bookingModal?.classList.remove("active");
+  alert(`Pass booked successfully! Order #${order.id}`);
 });
 
-// App Initialization
-async function init() {
-  load();
-  try {
-    const res = await fetch("data/routes.json");
-    if (!res.ok) throw new Error("HTTP error " + res.status);
-    state.routes = await res.json();
-    setupPlannerOptions();
-    render();
-  } catch (err) {
-    const container = document.querySelector("#routes-container");
-    if (container) {
-      container.innerHTML = `<p style="color: #ef4444; padding: 1rem;">Could not load transit routes. Check local data file connection.</p>`;
-    }
-  }
-}
+// Support Form Handler
+document.querySelector("#support-form")?.addEventListener("submit", (e) => {
+  e.preventDefault();
+  alert("Thank you for reaching out! Your inquiry has been submitted.");
+  e.target.reset();
+});
 
-setInterval(render, REFRESH_RATE_MS);
+function init() {
+  load();
+  setupPlannerOptions();
+  render();
+}
+// Terms & Conditions Modal Handlers
+const tcModal = document.querySelector("#tc-modal");
+const openTcBtn = document.querySelector("#open-tc-footer");
+const closeTcBtn = document.querySelector("#close-tc-modal");
+
+openTcBtn?.addEventListener("click", (e) => {
+  e.preventDefault();
+  tcModal?.classList.add("active");
+});
+
+closeTcBtn?.addEventListener("click", () => {
+  tcModal?.classList.remove("active");
+});
+
+// Google Login Simulation
+document.querySelector("#google-login-btn")?.addEventListener("click", () => {
+  alert("Redirecting to Google Sign-In...");
+});
+
+// Promo Login & Signup Buttons
+document.querySelector("#promo-login-btn")?.addEventListener("click", () => {
+  document.querySelector("#auth-modal")?.classList.add("active");
+});
+
+document.querySelector("#promo-signup-btn")?.addEventListener("click", () => {
+  document.querySelector("#auth-modal")?.classList.add("active");
+});
+
 init();

@@ -8,210 +8,270 @@
   <!-- FontAwesome Icons CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
+  <!-- External CSS (includes hero styles) -->
+  <link rel="stylesheet" href="styles.css">
+  
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
-    :root {
-      --primary: #0f172a;
-      --primary-accent: #2563eb;
-      --accent-gold: #f59e0b;
-      --accent-emerald: #10b981;
-      --bg-main: #f8fafc;
-      --card-bg: #ffffff;
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --border-light: #e2e8f0;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
-      --shadow-hover: 0 10px 20px rgba(37, 99, 235, 0.12);
-      --radius-lg: 12px;
-      --radius-md: 8px;
-    }
+:root {
+  --primary-dark: #0f172a;
+  --blue-main: #1d4ed8;
+  --blue-dark: #1e3a8a;
+  --blue-light: #3b82f6;
+  --blue-bg: #eff6ff;
+  --accent-gold: #f59e0b;
+  --accent-emerald: #10b981;
+  --card-bg: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-light: #dbeafe;
+  --shadow-sm: 0 4px 6px -1px rgba(29, 78, 216, 0.08);
+  --shadow-hover: 0 12px 24px -4px rgba(29, 78, 216, 0.2);
+  --radius-lg: 14px;
+  --radius-md: 10px;
+}
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body.app-layout {
-      display: flex;
-      min-height: 100vh;
-      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-      background-color: var(--bg-main);
-      color: var(--text-main);
-    }
+body.app-layout {
+  min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  background-color: #f0f5ff;
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+}
 
-    .left-sidebar {
-      width: 250px;
-      background: var(--primary);
-      color: white;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      position: fixed;
-      top: 0; left: 0; bottom: 0;
-      z-index: 100;
-    }
+.sidebar-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 150;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.sidebar-overlay.active { opacity: 1; pointer-events: all; }
 
-    .sidebar-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 1.25rem;
-      margin-bottom: 2rem;
-    }
+.left-sidebar {
+  width: 280px;
+  background: linear-gradient(180deg, var(--blue-dark) 0%, #0f172a 100%);
+  color: white;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: -290px; bottom: 0;
+  z-index: 200;
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 4px 0 25px rgba(0,0,0,0.3);
+}
+.left-sidebar.active { left: 0; }
 
-    .sidebar-menu { display: flex; flex-direction: column; gap: 0.5rem; }
+.sidebar-brand { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
+.brand-title { display: flex; align-items: center; gap: 0.75rem; font-size: 1.2rem; font-weight: 700; }
+.sidebar-brand-img { width: 38px; height: 38px; border-radius: var(--radius-md); object-fit: cover; border: 2px solid var(--blue-light); }
+.close-sidebar-btn { background: transparent; border: none; color: #94a3b8; font-size: 1.5rem; cursor: pointer; }
 
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-      padding: 0.75rem 1rem;
-      color: #94a3b8;
-      text-decoration: none;
-      border-radius: var(--radius-md);
-      font-weight: 500;
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
+.sidebar-menu { display: flex; flex-direction: column; gap: 0.4rem; }
+.nav-item {
+  display: flex; align-items: center; gap: 0.85rem; padding: 0.75rem 1rem;
+  color: #cbd5e1; text-decoration: none; border-radius: var(--radius-md); font-weight: 500; transition: all 0.2s ease;
+}
+.nav-item:hover, .nav-item.active { background: var(--blue-main); color: white; box-shadow: 0 4px 12px rgba(29, 78, 216, 0.4); }
+.sidebar-footer { margin-top: auto; padding-top: 1rem; }
+.full-width { width: 100%; }
 
-    .nav-item:hover, .nav-item.active { background: #1e293b; color: #38bdf8; }
-    .sidebar-footer { margin-top: auto; }
-    .full-width { width: 100%; }
+.btn {
+  padding: 0.75rem 1.25rem; border-radius: var(--radius-md); font-weight: 600; font-size: 0.9rem;
+  cursor: pointer; border: none; transition: all 0.2s ease;
+}
+.btn-primary { background: var(--blue-main); color: white; }
+.btn-primary:hover { background: #15803d; }
 
-    .btn {
-      padding: 0.65rem 1rem;
-      border-radius: var(--radius-md);
-      font-weight: 600;
-      font-size: 0.875rem;
-      cursor: pointer;
-      border: none;
-    }
-    .btn-primary { background: var(--primary-accent); color: white; }
+.top-nav-bar {
+  background: var(--blue-dark); color: white; padding: 0.85rem 1.25rem;
+  display: flex; align-items: center; gap: 1rem; position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+.menu-toggle-btn {
+  background: rgba(255,255,255,0.15); border: none; color: white; font-size: 1.25rem;
+  padding: 0.5rem 0.75rem; border-radius: var(--radius-md); cursor: pointer;
+}
+.nav-brand-text { font-size: 1.1rem; font-weight: 700; }
 
-    .main-wrapper {
-      margin-left: 250px;
-      flex: 1;
-      padding: 2rem;
-      max-width: calc(100vw - 250px);
-    }
+.main-wrapper { padding: 1rem; width: 100%; }
 
-    .top-header { margin-bottom: 1.5rem; }
-    .search-wrapper { position: relative; max-width: 600px; }
-    .search-wrapper input {
-      width: 100%;
-      padding: 0.85rem 1rem;
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-lg);
-      font-size: 0.95rem;
-      outline: none;
-      box-shadow: var(--shadow-sm);
-    }
+.header-hero-card {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.55), rgba(30, 58, 138, 0.45)), url('shegerBus.jpg');
+  background-size: cover; background-position: center; border-radius: var(--radius-lg);
+  padding: 2.5rem 1.25rem; color: white; margin-bottom: 1.5rem;
+  box-shadow: 0 10px 25px rgba(29, 78, 216, 0.2); border: 1px solid rgba(255, 255, 255, 0.25);
+}
+.hero-content h1 { font-size: 1.5rem; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+.hero-content p { color: #f1f5f9; font-size: 0.95rem; margin-bottom: 1.25rem; text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
 
-    .planner-section, .map-section, .favorites-section, .routes-section {
-      background: var(--card-bg);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-lg);
-      padding: 1.25rem;
-      margin-bottom: 2rem;
-      box-shadow: var(--shadow-sm);
-    }
+.search-wrapper input {
+  width: 100%; padding: 0.85rem 1.15rem; border: 2px solid #bfdbfe;
+  border-radius: var(--radius-lg); font-size: 0.9rem; outline: none; background: rgba(255, 255, 255, 0.98);
+}
 
-    .planner-controls { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end; margin-top: 1rem; }
-    .planner-field { display: flex; flex-direction: column; gap: 0.35rem; flex: 1; min-width: 180px; }
-    .planner-field label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
-    .planner-field select { padding: 0.65rem; border-radius: var(--radius-md); border: 1px solid var(--border-light); background: var(--bg-main); font-size: 0.95rem; outline: none; }
-    .planner-result { margin-top: 1rem; padding: 0.85rem; border-radius: var(--radius-md); background: #f1f5f9; font-weight: 500; }
+.view-section {
+  background: var(--card-bg); border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-sm);
+}
+.view-section.hidden { display: none !important; }
 
-    .section-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-    .live-status { font-size: 0.825rem; color: var(--accent-emerald); font-weight: 600; display: flex; align-items: center; gap: 0.4rem; }
-    .pulse-dot { width: 8px; height: 8px; background-color: var(--accent-emerald); border-radius: 50%; }
-    .map-container { height: 280px; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-light); }
+.planner-controls { display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1rem; }
+.planner-field { display: flex; flex-direction: column; gap: 0.35rem; }
+.planner-field label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+.planner-field select { padding: 0.7rem; border-radius: var(--radius-md); border: 1px solid var(--border-light); background: var(--blue-bg); font-size: 0.95rem; }
 
-    #routes-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.25rem; margin-top: 1rem; }
+#routes-container { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
 
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-lg);
-      padding: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      box-shadow: var(--shadow-sm);
-      transition: all 0.2s ease;
-    }
-    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
-    .card h3 { color: var(--primary-accent); font-size: 1.1rem; }
-    .card p { font-size: 0.9rem; color: var(--text-muted); }
-    .card p strong { color: var(--text-main); }
+.card {
+  background: var(--card-bg); border: 1px solid var(--border-light); border-radius: var(--radius-lg);
+  padding: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;
+  box-shadow: var(--shadow-sm); border-top: 4px solid var(--blue-main);
+}
+.card h3 { color: var(--blue-main); font-size: 1.1rem; }
+.route-via { font-size: 0.825rem; color: var(--blue-main); font-weight: 500; }
+.route-via span { color: var(--text-muted); }
 
-    .route-via { font-size: 0.825rem; color: var(--primary-accent); font-weight: 500; }
-    .route-via span { color: var(--text-main); }
+.countdown-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem; background: #eff6ff;
+  color: var(--blue-dark); padding: 0.35rem 0.65rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600; width: fit-content;
+}
 
-    .countdown-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: #fef3c7;
-      color: #92400e;
-      padding: 0.35rem 0.65rem;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      width: fit-content;
-    }
+.fav-item, .history-item {
+  background: var(--blue-bg); padding: 0.85rem; border-radius: var(--radius-md);
+  margin-top: 0.5rem; font-size: 0.9rem; border-left: 4px solid var(--blue-main);
+}
 
-    .fav-btn {
-      margin-top: auto;
-      padding: 0.6rem;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-light);
-      background: var(--bg-main);
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.2s ease;
-    }
-    .fav-btn:hover { background: var(--primary-accent); color: white; border-color: var(--primary-accent); }
+.modal-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center; z-index: 1000;
+  opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+}
+.modal-overlay.active { opacity: 1; pointer-events: all; }
+.modal-card { background: white; width: 92%; max-width: 420px; padding: 1.5rem; border-radius: var(--radius-lg); }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
 
-    .fav-item { background: var(--bg-main); padding: 0.75rem; border-radius: var(--radius-md); margin-top: 0.5rem; font-size: 0.875rem; border-left: 4px solid var(--accent-gold); }
+.form-group { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+.form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+.form-group input, .form-group select, .form-group textarea {
+  padding: 0.7rem; border: 1px solid var(--border-light); border-radius: var(--radius-md); font-size: 0.95rem; outline: none;
+}
+.error { color: #ef4444; font-size: 0.85rem; font-weight: 600; min-height: 1.2rem; }
 
-    .modal-overlay {
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(15, 23, 42, 0.6);
-      backdrop-filter: blur(4px);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
-    }
-    .modal-overlay.active { opacity: 1; pointer-events: all; }
-    .modal-card { background: white; width: 90%; max-width: 400px; padding: 1.5rem; border-radius: var(--radius-lg); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
-    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
-    .close-modal { background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
-    
-    .form-group { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
-    .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
-    .form-group input, .form-group select { padding: 0.65rem; border: 1px solid var(--border-light); border-radius: var(--radius-md); font-size: 0.95rem; outline: none; }
-    .error { color: #ef4444; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; min-height: 1.2rem; }
+@media (min-width: 768px) {
+  .main-wrapper { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+  .header-hero-card { padding: 3.5rem 2.25rem; }
+  .hero-content h1 { font-size: 2rem; }
+  .hero-content p { font-size: 1.05rem; }
+  .search-wrapper input { font-size: 0.975rem; max-width: 650px; }
+  .planner-controls { flex-direction: row; align-items: flex-end; }
+  #routes-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.25rem; }
+}
 
-    .view-section.hidden { display: none !important; }
-
-    @media (max-width: 768px) {
-      body.app-layout { flex-direction: column; }
-      .left-sidebar { width: 100%; height: auto; position: relative; }
-      .main-wrapper { margin-left: 0; max-width: 100vw; padding: 1rem; }
-    }
+/* ===== HERO SECTION STYLES (added inline so it works without external CSS) ===== */
+.uber-hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  background: #ffffff;
+  padding: 2.5rem 3rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 2rem;
+  border: 1px solid var(--border-light);
+}
+.uber-hero-left { flex: 1; max-width: 60%; }
+.uber-hero-title {
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: #000000;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  letter-spacing: -0.04em;
+}
+.uber-hero-desc {
+  font-size: 1.15rem;
+  color: #555555;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+.uber-hero-actions { display: flex; align-items: center; gap: 1.5rem; }
+.btn-dark {
+  background: #000;
+  color: #fff;
+  padding: 0.85rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+.hero-link {
+  color: #64748b;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.uber-hero-right { flex: 0 0 250px; display: flex; justify-content: flex-end; }
+.uber-hero-img {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  object-fit: contain;
+}
+@media (max-width: 768px) {
+  .uber-hero-section { flex-direction: column; padding: 1.5rem; text-align: left; }
+  .uber-hero-left { max-width: 100%; }
+  .uber-hero-title { font-size: 2.5rem; }
+  .uber-hero-actions { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .uber-hero-right { justify-content: center; }
+}
   </style>
 </head>
 <body class="app-layout">
 
-  <!-- Left Sidebar Navigation -->
-  <aside class="left-sidebar">
+  <!-- Top Sticky Navigation Bar -->
+  <header class="top-nav-bar">
+    <button class="menu-toggle-btn" id="menu-toggle-btn" aria-label="Toggle Sidebar Menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="nav-brand-text">
+      <img src="shegerlogo.png" alt="Sheger Transit Logo" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background: white; padding: 2px; vertical-align: middle;">
+      <span>Sheger Transit</span>
+    </div>
+  </header>
+
+  <!-- Dark Blurred Overlay -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- Collapsible Left Sidebar -->
+  <aside class="left-sidebar" id="left-sidebar">
     <div class="sidebar-brand">
-      <span>🚍 Sheger <strong>Transit</strong></span>
+      <div class="brand-title">
+        <img src="shegerBus.jpg" alt="Sheger Bus Logo" class="sidebar-brand-img">
+        <span>Sheger <strong>Transit</strong></span>
+      </div>
+      <button class="close-sidebar-btn" id="close-sidebar-btn">&times;</button>
     </div>
 
     <nav class="sidebar-menu">
-      <a class="nav-item active" data-view="home">🏠 <span>Home</span></a>
-      <a class="nav-item" data-view="routes">🗺️ <span>All Routes</span></a>
-      <a class="nav-item" data-view="planner">🧮 <span>Trip Planner</span></a>
-      <a class="nav-item" data-view="favorites">🔖 <span>Favorites</span></a>
+      <a href="#" class="nav-item active" data-view="home">🏠 <span>Home</span></a>
+      <a href="#" class="nav-item" data-view="routes">🗺️ <span>All Routes</span></a>
+      <a href="#" class="nav-item" data-view="planner">🧮 <span>Trip Planner</span></a>
+      <a href="#" class="nav-item" data-view="favorites">🔖 <span>Favorites</span></a>
+      <a href="#" class="nav-item" data-view="history">📜 <span>Order History</span></a>
+      <a href="#" class="nav-item" data-view="payment">💳 <span>Payment Methods</span></a>
+      <a href="#" class="nav-item" data-view="support">💬 <span>Support & Inquiry</span></a>
+      <a href="#" class="nav-item" data-view="profile">👤 <span>Profile</span></a>
     </nav>
 
     <div class="sidebar-footer">
@@ -219,18 +279,71 @@
     </div>
   </aside>
 
-  <!-- Main Content View Areas -->
+  <!-- Main Content Area -->
   <div class="main-wrapper">
-    <header class="top-header">
+    <!-- Header Hero Card -->
+    <header class="header-hero-card">
+      <div class="hero-content">
+        <h1>Find Your Sheger Route</h1>
+        <p>Real-time bus schedules, direct routes, and pass booking across Addis Ababa.</p>
+      </div>
       <div class="search-wrapper">
-        <input type="text" id="search" placeholder="🔍 Search route number, origin, destination, or via route...">
+        <input type="text" id="search" placeholder="🔍 Search route number, origin, or destination...">
       </div>
     </header>
+
+    <!-- UBER-STYLE HERO SECTION (Side by side) -->
+    <section class="uber-hero-section">
+      <!-- Left Card: Text and Buttons -->
+      <div class="uber-hero-left">
+        <h1 class="uber-hero-title">Your daily journey, elevated.</h1>
+        <p class="uber-hero-desc">View past trips, tailored suggestions, support resources, and more.</p>
+        <div class="uber-hero-actions">
+          <button class="btn-dark" id="hero-login-btn">Log in / Sign up</button>
+          <a href="#" id="hero-recent-activity-link" class="hero-link">Log in to see your recent activity</a>
+        </div>
+      </div>
+      <!-- Right Card: Image -->
+      <div class="uber-hero-right">
+        <img src="shegerlogo.png" alt="Sheger Transit Graphic" class="uber-hero-img">
+      </div>
+    </section>
+
+    <!-- AUTH MODAL (Single, no duplicate) -->
+    <div class="modal-overlay" id="auth-modal">
+      <div class="modal-card auth-modal-card">
+        <div class="modal-header">
+          <h3>Welcome to Sheger Transit</h3>
+          <button class="close-btn" id="close-auth-modal">&times;</button>
+        </div>
+        <div class="modal-body auth-body">
+          <input type="email" placeholder="Email address" class="form-input">
+          <input type="password" placeholder="Password" class="form-input">
+          <button class="btn btn-dark btn-full">Continue</button>
+          <div class="auth-divider"><span>or</span></div>
+          <button class="btn btn-social" id="google-login-btn">
+            <svg class="social-icon" viewBox="0 0 24 24" width="20" height="20">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            Continue with Google
+          </button>
+          <button class="btn btn-social" id="apple-login-btn">
+            <svg class="social-icon" viewBox="0 0 24 24" width="20" height="20">
+              <path fill="#000000" d="M17.05 13.6c-.02-2.36 1.93-3.51 2.02-3.57-1.1-1.61-2.82-1.83-3.42-1.85-1.46-.15-2.86.86-3.6.86-.73 0-1.88-.84-3.11-.82-1.6.02-3.08.93-3.9 2.37-1.67 2.88-.43 7.15 1.19 9.5.8 1.15 1.74 2.44 3.01 2.39 1.22-.05 1.7-.79 3.19-.79 1.48 0 1.92.79 3.2.77 1.3-.02 2.12-1.17 2.91-2.33 1.01-1.47 1.43-2.9 1.45-2.97-.03-.02-2.77-1.07-2.79-4.22.01-.01.01-.02.01-.03zM14.94 4.54c.67-.81 1.12-1.93 1-3.04-1.01.04-2.17.67-2.85 1.48-.6.71-1.14 1.85-1 2.94 1.1.09 2.17-.55 2.85-1.38z"/>
+            </svg>
+            Continue with Apple
+          </button>
+        </div>
+      </div>
+    </div>
 
     <main class="content-area">
       <!-- Section: Trip Planner -->
       <section class="planner-section view-section" id="section-planner">
-        <h2>🧮 Fare Calculator & Trip Planner</h2>
+        <h2>Fare Calculator & Trip Planner</h2>
         <div class="planner-controls">
           <div class="planner-field">
             <label for="origin-select">Origin:</label>
@@ -242,23 +355,16 @@
           </div>
           <button id="calculate-btn" class="btn btn-primary">Calculate Fare</button>
         </div>
-        <div id="planner-result" class="planner-result"></div>
+        <div id="planner-result" class="planner-result" style="margin-top: 1rem;"></div>
       </section>
 
       <!-- Section: Map -->
       <section class="map-section view-section" id="section-map">
-        <div class="section-title">
-          <h2>📍 Live Transit Map</h2>
-          <span class="live-status"><span class="pulse-dot"></span> Addis Ababa Grid</span>
-        </div>
-        <div class="map-container">
+        <h2>📍 Live Transit Map</h2>
+        <div style="height: 280px; border-radius: 10px; overflow: hidden; margin-top: 1rem;">
           <iframe 
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126105.70817088118!2d38.70622285!3d9.0107934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b85cef5ab402d%3A0x8467b6b037a24d49!2sAddis%20Ababa!5e0!3m2!1sen!2set!4v1710000000000!5m2!1sen!2set" 
-            width="100%" 
-            height="100%" 
-            style="border:0;" 
-            allowfullscreen="" 
-            loading="lazy">
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
           </iframe>
         </div>
       </section>
@@ -269,20 +375,81 @@
         <div id="routes-container"></div>
       </section>
 
-      <!-- Section: Favorites & Checkout -->
+      <!-- Section: Favorites -->
       <section class="favorites-section view-section" id="section-favorites">
-        <h2>🔖 Favorites & Checkout Summary</h2>
+        <h2>🔖 Favorites & Booking</h2>
         <div id="favorites-container"></div>
+        <button id="open-booking-btn" class="btn btn-primary" style="margin-top: 1rem;">Book Transit Pass</button>
+      </section>
+
+      <!-- Section: Order History -->
+      <section class="history-section view-section hidden" id="section-history">
+        <h2>📜 Order & Pass History</h2>
+        <div id="history-container" style="margin-top: 1rem;"></div>
+      </section>
+
+      <!-- Section: Payment Methods -->
+      <section class="payment-section view-section hidden" id="section-payment">
+        <h2>💳 Payment Methods</h2>
+        <p style="color: var(--text-muted);">Manage your primary digital payment options for Sheger passes.</p>
+        <div class="payment-grid">
+          <div class="payment-card active">
+            <i class="fa-solid fa-mobile-screen-button" style="font-size: 1.5rem; color: #1d4ed8;"></i>
+            <div>
+              <strong>TeleBirr</strong>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Primary Wallet</p>
+            </div>
+          </div>
+          <div class="payment-card">
+            <i class="fa-solid fa-building-columns" style="font-size: 1.5rem; color: #15803d;"></i>
+            <div>
+              <strong>CBE Birr</strong>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Commercial Bank</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Support & Inquiry -->
+      <section class="support-section view-section hidden" id="section-support">
+        <h2>💬 Support & Message Inquiry</h2>
+        <form id="support-form" style="margin-top: 1rem;">
+          <div class="form-group">
+            <label for="sup-name">Your Name</label>
+            <input type="text" id="sup-name" required placeholder="Full Name">
+          </div>
+          <div class="form-group">
+            <label for="sup-subject">Inquiry Subject</label>
+            <input type="text" id="sup-subject" required placeholder="e.g. Lost item, Route issue">
+          </div>
+          <div class="form-group">
+            <label for="sup-msg">Message</label>
+            <textarea id="sup-msg" rows="4" required placeholder="Type your message here..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+      </section>
+
+      <!-- Section: Profile -->
+      <section class="profile-section view-section hidden" id="section-profile">
+        <h2>👤 User Profile</h2>
+        <div class="profile-card" style="margin-top: 1rem;">
+          <div class="profile-avatar"><i class="fa-solid fa-user"></i></div>
+          <div>
+            <h3>Commuter Account</h3>
+            <p style="color: var(--text-muted);">Active Sheger Pass Holder</p>
+          </div>
+        </div>
       </section>
     </main>
   </div>
 
-  <!-- Sign In Modal -->
-  <div class="modal-overlay" id="auth-modal">
+  <!-- Sign In Modal (This is the one actually used by JS) -->
+  <div class="modal-overlay" id="signin-modal">
     <div class="modal-card">
       <div class="modal-header">
         <h3>Sign In to Sheger Transit</h3>
-        <button class="close-modal" id="close-modal">&times;</button>
+        <button class="close-modal" id="close-signin-modal">&times;</button>
       </div>
       <form id="login-form">
         <div class="form-group">
@@ -298,15 +465,14 @@
     </div>
   </div>
 
-  <!-- Day 24 Checkout Modal -->
+  <!-- Pass Booking Modal -->
   <div class="modal-overlay" id="booking-modal">
     <div class="modal-card">
       <div class="modal-header">
         <h3>Book Transit Pass (TeleBirr)</h3>
         <button class="close-modal" id="close-booking-modal">&times;</button>
       </div>
-      <!-- Novalidate turns off browser defaults for custom JS handling -->
-      <form id="checkout" novalidate>
+      <form id="checkout-form" novalidate>
         <div class="form-group">
           <label for="passenger-name">Full Name</label>
           <input type="text" id="passenger-name" placeholder="e.g. Abebe Bikila">
@@ -315,12 +481,101 @@
           <label for="passenger-phone">TeleBirr Mobile Number</label>
           <input type="tel" id="passenger-phone" placeholder="09xxxxxxxx or +2519xxxxxxxx">
         </div>
-        <!-- Single accessible error output region -->
         <p id="form-error" class="error" aria-live="polite"></p>
-        <button type="submit" class="btn btn-primary full-width">Place Order & Pay Pass</button>
+        <button type="submit" class="btn btn-primary full-width">Confirm & Pay Pass</button>
       </form>
     </div>
   </div>
+
+  <!-- Terms & Conditions Modal -->
+  <div class="modal-overlay" id="tc-modal">
+    <div class="modal-card modal-large">
+      <div class="modal-header">
+        <h3>SHEGER TRANSIT – TERMS AND CONDITIONS</h3>
+        <button class="close-btn" id="close-tc-modal">&times;</button>
+      </div>
+      <div class="modal-body tc-content-body">
+        <p class="tc-date"><strong>Last Updated:</strong> August 30, 2026</p>
+
+        <h4>1. General Provisions</h4>
+        <p>This document (the "Terms") constitutes a contractual agreement between you, the passenger ("you" or "Passenger"), and Sheger Transit ("we," "us," "our," or the "Company") regarding the use of our services, including ticket purchases, cancellations, and refunds.</p>
+        <p>By purchasing a ticket, visiting our website, or using our services, you acknowledge that you have read, understood, and agree to be bound by all terms of this Policy. If you do not agree with any part of these Terms, please refrain from purchasing tickets or using our services.</p>
+
+        <h4>2. Consumer Rights</h4>
+        <p>Under Ethiopian law, particularly the Trade Competition and Consumer Protection Proclamation No. 813/2013, consumers have the right to:</p>
+        <ul>
+          <li>Receive clear and transparent information regarding contract terms and cancellation policies;</li>
+          <li>Request repair, re-service, or a refund if the service provided is defective or not rendered as agreed;</li>
+          <li>Seek compensation from the Federal Trade Competition and Consumer Protection Authority or relevant judicial bodies if the Company fails to fulfill its refund or replacement obligations.</li>
+        </ul>
+        <p>We are committed to complying with these legal requirements, and this Policy clearly defines your cancellation and refund rights accordingly.</p>
+
+        <h4>3. Passenger Cancellation and Refund Conditions</h4>
+        <h5>3.1 Cancellation Initiated by the Passenger</h5>
+        <p><strong>3.1.1 More Than 24 Hours Before Departure:</strong> Full refund of ticket price.</p>
+        <p><strong>3.1.2 Between 2 and 24 Hours Before Departure:</strong> 50% refund of ticket price.</p>
+        <p><strong>3.1.3 Less Than 2 Hours Before Departure:</strong> No refund will be issued.</p>
+        <p><strong>3.1.4 No-Show:</strong> Failure to arrive at departure point without prior cancellation results in no refund.</p>
+
+        <h5>3.2 Cancellation or Change Initiated by Sheger Transit</h5>
+        <p><strong>3.2.1 Company-Initiated Cancellation:</strong> Entitled to a full refund or free rebooking.</p>
+        <p><strong>3.2.2 Significant Schedule Changes:</strong> Delays exceeding 2 hours or date changes entitle passenger to full refund or schedule acceptance.</p>
+
+        <h5>3.3 Force Majeure</h5>
+        <p>In unforeseen circumstances beyond reasonable control (natural disasters, government restrictions, war, epidemics), Sheger Transit reserves sole discretion on refund/rebooking decisions.</p>
+
+        <h4>4. Non-Refundable Circumstances</h4>
+        <ul>
+          <li>Ticket already used or partially used</li>
+          <li>Cancellation made less than 2 hours before departure</li>
+          <li>Passenger no-show</li>
+          <li>Ticket purchased >30 days ago and unused without refund request</li>
+          <li>Lost or stolen tickets</li>
+          <li>Denied boarding due to safety policy violations</li>
+          <li>Tickets bought via unauthorized third-party vendors</li>
+        </ul>
+
+        <h4>5. Refund Procedure and Processing Time</h4>
+        <p><strong>5.1 How to Apply:</strong> Online via official website, In-Person at customer service center, or via Customer Support hotline/email.</p>
+        <p><strong>5.2 Required Information:</strong> Full name, contact info, ticket/order ID, trip details, and cancellation reason.</p>
+        <p><strong>5.3 Processing Time:</strong> Complete applications processed within 10 business days via original payment method.</p>
+        <p><strong>5.4 Delays:</strong> Company is not liable for payment gateway/bank delays but will assist tracking.</p>
+
+        <h4>6. Rebooking (Change of Schedule) Policy</h4>
+        <ul>
+          <li><strong>>24 hours before departure:</strong> 1 free rebooking</li>
+          <li><strong>2–24 hours before departure:</strong> 20% rebooking fee</li>
+          <li><strong><2 hours before departure:</strong> Rebooking not permitted</li>
+        </ul>
+
+        <h4>7. Service Defects and Complaints</h4>
+        <p>Failure to provide agreed service entitles passengers to full refund or free rebooking. Quality complaints are answered within 15 business days.</p>
+
+        <h4>8. Limitation of Liability</h4>
+        <p>Total liability is strictly limited to the actual fare paid. No liability for indirect or consequential losses.</p>
+
+        <h4>9. Dispute Resolution</h4>
+        <p>Disputes are addressed within 15 business days. Escalation is available via the Federal Trade Competition and Consumer Protection Authority or Ethiopian Courts.</p>
+
+        <h4>10. Policy Amendments</h4>
+        <p>Amendments take effect immediately upon website posting.</p>
+
+        <h4>11. Contact Information</h4>
+        <p><strong>Hotline:</strong> 0112345678 | <strong>Emergency:</strong> 1012</p>
+        <p><strong>Email:</strong> ShegerTransit.et.com</p>
+        <p><strong>Address:</strong> Megenagna Horizon Mall, 3rd Floor, Addis Ababa, Ethiopia</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="app-footer-simple">
+    <div class="footer-left">
+      <p>&copy; 2026 Sheger Transit.</p>
+    </div>
+    <div class="footer-right">
+      <a href="#" id="open-tc-footer" class="footer-link">Terms and conditions</a>
+    </div>
+  </footer>
 
   <script src="app.js"></script>
 </body>

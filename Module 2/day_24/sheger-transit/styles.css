@@ -1,4 +1,23 @@
-/* Modal Styling */
+/* =========================================
+   1. UTILITIES & BASE VIEWS
+   ========================================= */
+.view-section.hidden {
+  display: none !important;
+}
+
+.route-via {
+  font-size: 0.825rem;
+  color: var(--primary-accent, #2563eb);
+  font-weight: 500;
+}
+
+.route-via span {
+  color: var(--text-main, #0f172a);
+}
+
+/* =========================================
+   2. MODALS & FORMS
+   ========================================= */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -26,7 +45,7 @@
   width: 90%;
   max-width: 400px;
   padding: 1.5rem;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-lg, 12px);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
@@ -42,7 +61,7 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: var(--text-muted);
+  color: var(--text-muted, #64748b);
 }
 
 .form-group {
@@ -55,31 +74,421 @@
 .form-group label {
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--text-muted, #64748b);
 }
 
 .form-group input {
   padding: 0.65rem;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light, #e2e8f0);
+  border-radius: var(--radius-md, 8px);
   font-size: 0.95rem;
   outline: none;
 }
 
 .form-group input:focus {
-  border-color: var(--primary-accent);
+  border-color: var(--primary-accent, #2563eb);
 }
 
-/* View Section Toggle Utility */
-.view-section.hidden {
-  display: none !important;
+/* =========================================
+   3. UBER-STYLE HERO SECTION (SIDE-BY-SIDE)
+   ========================================= */
+/* Update the grid to give more space to the left side */
+.uber-hero-section {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr; 
+  gap: 2rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 0 2rem;
 }
-.route-via {
-  font-size: 0.825rem;
-  color: var(--primary-accent);
+
+/* Make the title significantly bigger */
+.uber-hero-title {
+  font-size: 4.5rem; 
+  font-weight: 800;
+  color: #000000;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  letter-spacing: -0.04em;
+}
+
+/* Increase the description text size */
+.uber-hero-desc {
+  font-size: 1.25rem; 
+  color: #555555;
+  margin-bottom: 2.5rem;
+  line-height: 1.5;
+  max-width: 90%;
+}
+
+/* Force the image container to align to the far right */
+.uber-hero-right {
+  display: flex;
+  justify-content: flex-end; 
+  align-items: center;
+  width: 100%;
+}
+
+/* Make the logo much smaller */
+.uber-hero-img {
+  width: 100%;
+  max-width: 280px; /* Reduced from 550px */
+  height: auto;
+  object-fit: contain;
+}
+
+/* Mobile Breakpoint - Stacks on smaller screens */
+@media (max-width: 850px) {
+  .uber-hero-section {
+    grid-template-columns: 1fr; 
+    margin: 2rem auto;
+    text-align: center;
+  }
+  .uber-hero-actions {
+    justify-content: center;
+  }
+  .uber-hero-desc {
+    max-width: 100%;
+  }
+  .uber-hero-right {
+    justify-content: center;
+  }
+}
+
+/* =========================================
+   4. AUTH & T&C MODAL SPECIFICS
+   ========================================= */
+.auth-modal-card {
+  max-width: 400px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.85rem;
+  margin-bottom: 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+}
+
+.btn-full {
+  width: 100%;
+  padding: 0.85rem;
+}
+
+.auth-divider {
+  text-align: center;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+.auth-divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  border-top: 1px solid #e2e8f0;
+  z-index: 1;
+}
+
+.auth-divider span {
+  background: #fff;
+  padding: 0 10px;
+  color: #94a3b8;
+  position: relative;
+  z-index: 2;
+  font-size: 0.9rem;
+}
+
+.btn-social {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+  padding: 0.85rem;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* T&C Modal */
+.modal-large {
+  max-width: 750px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.tc-content-body {
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #334155;
+}
+
+.tc-content-body h4 {
+  margin-top: 1.25rem;
+  color: #0f172a;
+  font-size: 1rem;
+}
+
+.tc-content-body h5 {
+  margin-top: 0.75rem;
+  color: #1e3a8a;
+}
+
+.tc-content-body ul {
+  margin-left: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+/* =========================================
+   5. FOOTER STYLES
+   ========================================= */
+
+/* Complex Footer (If you still use it) */
+.app-footer {
+  background: #0f172a;
+  color: #94a3b8;
+  padding: 2.5rem 1.25rem 1.25rem;
+  margin-top: auto;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.footer-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.footer-nav-col h4, .footer-contact-col h4 {
+  color: white;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.footer-nav-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-nav-col a {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer-contact-col p {
+  font-size: 0.875rem;
+  margin-bottom: 0.35rem;
+}
+
+.footer-bottom-bar {
+  border-top: 1px solid #1e293b;
+  padding-top: 1rem;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+
+.app-footer-simple {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: #0f172a;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  margin-top: 2rem;
+}
+
+
+.footer-link {
+  color: #cbd5e1;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 700; /* Makes the text bold */
+}
+
+/* Footer Desktop Alignment */
+@media (min-width: 768px) {
+  .footer-container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+/* Uber Hero Section Styles */
+.uber-hero-section {
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  gap: 2rem;
+  background: #ffffff; 
+  padding: 2.5rem 3rem; 
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm); 
+  margin-bottom: 2rem; 
+  border: 1px solid var(--border-light);
+}
+
+.uber-hero-left { 
+  flex: 1; 
+  max-width: 60%; 
+}
+
+.uber-hero-title { 
+  font-size: 3.2rem; 
+  font-weight: 800; 
+  color: #000000; 
+  line-height: 1.1; 
+  margin-bottom: 1rem; 
+  letter-spacing: -0.04em; 
+}
+
+.uber-hero-desc { 
+  font-size: 1.15rem; 
+  color: #555555; 
+  margin-bottom: 2rem; 
+  line-height: 1.5; 
+}
+
+.uber-hero-right { 
+  flex: 0 0 250px; 
+  display: flex; 
+  justify-content: flex-end; 
+}
+
+.uber-hero-img { 
+  width: 100%; 
+  max-width: 250px; 
+  height: auto; 
+  object-fit: contain; 
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .uber-hero-section { 
+    flex-direction: column; 
+    padding: 1.5rem; 
+    text-align: left; 
+  }
+  .uber-hero-left { 
+    max-width: 100%; 
+  }
+  .uber-hero-title { 
+    font-size: 2.5rem; 
+  }
+}
+/* Dual Card Hero Layout */
+.hero-cards-container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  width: 100%;
+}
+
+.hero-text-card, 
+.hero-image-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eaeaea;
+  padding: 3rem;
+}
+
+.hero-text-card {
+  flex: 1 1 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.uber-hero-title {
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  color: #000000;
+}
+
+.uber-hero-desc {
+  font-size: 1.15rem;
+  color: #555555;
+  margin-bottom: 2.5rem;
+}
+
+.uber-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.btn-dark {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.hero-link {
+  color: #000000;
+  text-decoration: underline;
+  font-size: 0.95rem;
   font-weight: 500;
 }
 
-.route-via span {
-  color: var(--text-main);
+.hero-image-card {
+  flex: 1 1 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.uber-hero-img {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Mobile Responsive Stack */
+@media (max-width: 900px) {
+  .hero-cards-container {
+    flex-direction: column;
+  }
+  .hero-image-card {
+    padding: 2rem;
+  }
+  .uber-hero-title {
+    font-size: 2.5rem;
+  }
 }
