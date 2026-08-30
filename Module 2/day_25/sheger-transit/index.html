@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&display=swap');
 
 :root {
   --primary-dark: #0f172a;
@@ -33,8 +33,12 @@
 
 body.app-layout {
   min-height: 100vh;
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  background-color: #f0f5ff;
+  font-family: 'Playfair Display', serif;
+  /* CHANGED: Use background.jpg instead of solid color */
+  background-image: url('background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   color: var(--text-main);
   display: flex;
   flex-direction: column;
@@ -126,6 +130,126 @@ body.app-layout {
 }
 .view-section.hidden { display: none !important; }
 
+/* =========================================
+   ANIMATIONS
+   ========================================= */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.view-section.animate-in {
+  animation: fadeSlideIn 0.4s ease-out forwards;
+}
+
+/* =========================================
+   GLOBAL HOVER EFFECT FOR ALL CARDS
+   ========================================= */
+.card, .about-card, .payment-card, .fav-item, .history-item, .planner-section {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover, .about-card:hover, .payment-card:hover, .fav-item:hover, .history-item:hover, .planner-section:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* =========================================
+   UPDATED ABOUT US SECTION
+   ========================================= */
+.about-section {
+  position: relative;
+  overflow: hidden;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 2rem;
+}
+.about-section::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url('shegerlogo.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.15;
+  z-index: 0;
+  pointer-events: none;
+}
+.about-section h2 {
+  position: relative;
+  z-index: 1;
+  font-size: 2.5rem;
+  color: var(--blue-main);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.about-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+.about-card {
+  background: var(--blue-bg);
+  border: 1px solid var(--border-light);
+  padding: 2.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+.about-card h3 {
+  font-size: 1.5rem;
+  color: var(--blue-main);
+  margin-bottom: 1rem;
+}
+.about-card p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-main);
+}
+
+/* =========================================
+   BIGGER FARE PLANNER SECTION
+   ========================================= */
+.planner-section {
+  padding: 2.5rem !important;
+}
+.planner-section h2 {
+  font-size: 2rem;
+  color: var(--blue-main);
+  margin-bottom: 1.5rem;
+}
+.planner-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+.planner-field label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.planner-field select {
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  background: var(--blue-bg);
+  font-size: 1.05rem;
+  font-family: 'Playfair Display', serif;
+}
+#calculate-btn {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+}
+#planner-result {
+  font-size: 1.1rem;
+}
+
+/* Rest of the CSS */
 .planner-controls { display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1rem; }
 .planner-field { display: flex; flex-direction: column; gap: 0.35rem; }
 .planner-field label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
@@ -167,91 +291,74 @@ body.app-layout {
 .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
 .form-group input, .form-group select, .form-group textarea {
   padding: 0.7rem; border: 1px solid var(--border-light); border-radius: var(--radius-md); font-size: 0.95rem; outline: none;
+  font-family: 'Playfair Display', serif;
 }
 .error { color: #ef4444; font-size: 0.85rem; font-weight: 600; min-height: 1.2rem; }
 
-/* =========================================
-   UBER-STYLE HERO SECTION (Blue Theme)
-   ========================================= */
+/* Uber Hero Section */
 .uber-hero-section {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  background: #ffffff;
-  padding: 2.5rem 3rem;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  margin-bottom: 2rem;
-  border: 1px solid var(--border-light);
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+  background: #ffffff; padding: 2.5rem 3rem; border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm); margin-bottom: 2rem; border: 1px solid var(--border-light);
 }
 .uber-hero-left { flex: 1; max-width: 60%; }
-.uber-hero-title {
-  font-size: 3.2rem;
-  font-weight: 800;
-  color: #000000;
-  line-height: 1.1;
-  margin-bottom: 1rem;
-  letter-spacing: -0.04em;
-}
-.uber-hero-desc {
-  font-size: 1.15rem;
-  color: #555555;
-  margin-bottom: 2rem;
-  line-height: 1.5;
-}
+.uber-hero-title { font-size: 3.2rem; font-weight: 800; color: #000000; line-height: 1.1; margin-bottom: 1rem; letter-spacing: -0.04em; }
+.uber-hero-desc { font-size: 1.15rem; color: #555555; margin-bottom: 2rem; line-height: 1.5; }
 .uber-hero-actions { display: flex; align-items: center; gap: 1.5rem; }
-
-/* CHANGED: BLACK BUTTON TO BLUE THEME */
-.btn-dark {
-  background: var(--blue-main);
-  color: white;
-  padding: 0.85rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 700;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-.btn-dark:hover {
-  background: var(--blue-dark);
-}
-.hero-link {
-  color: var(--blue-main);
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-}
+.btn-dark { background: var(--blue-main); color: white; padding: 0.85rem 1.5rem; border-radius: 8px; font-weight: 700; border: none; cursor: pointer; transition: background 0.2s ease; }
+.btn-dark:hover { background: var(--blue-dark); }
+.hero-link { color: var(--blue-main); font-weight: 600; text-decoration: none; cursor: pointer; }
 .hero-link:hover { text-decoration: underline; }
-
-.uber-hero-right { flex: 0 0 250px; display: flex; justify-content: flex-end; }
+.uber-hero-right { flex: 0 0 400px; display: flex; justify-content: flex-end; }
 .uber-hero-img {
   width: 100%;
-  max-width: 250px;
+  max-width: 400px;
   height: auto;
   object-fit: contain;
 }
 
 /* Auth Modal specific styles */
 .auth-modal-card { max-width: 400px; }
-.form-input {
-  width: 100%;
-  padding: 0.85rem;
-  margin-bottom: 1rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-}
+.form-input { width: 100%; padding: 0.85rem; margin-bottom: 1rem; border: 1px solid #cbd5e1; border-radius: 8px; }
 .btn-full { width: 100%; padding: 0.85rem; }
 .auth-divider { text-align: center; margin: 1.5rem 0; position: relative; }
 .auth-divider::before { content: ""; position: absolute; top: 50%; left: 0; right: 0; border-top: 1px solid #e2e8f0; z-index: 1; }
 .auth-divider span { background: #fff; padding: 0 10px; color: #94a3b8; position: relative; z-index: 2; font-size: 0.9rem; }
-.btn-social {
-  width: 100%; background: #fff; border: 1px solid #cbd5e1; color: #0f172a;
-  padding: 0.85rem; border-radius: 8px; margin-bottom: 0.75rem;
-  display: flex; align-items: center; justify-content: center; gap: 0.75rem; font-weight: 600; cursor: pointer;
+.btn-social { width: 100%; background: #fff; border: 1px solid #cbd5e1; color: #0f172a; padding: 0.85rem; border-radius: 8px; margin-bottom: 0.75rem; display: flex; align-items: center; justify-content: center; gap: 0.75rem; font-weight: 600; cursor: pointer; }
+
+/* Payment Grid */
+.payment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+.payment-card { display: flex; align-items: center; gap: 1rem; padding: 1.25rem; background: var(--blue-bg); border: 1px solid var(--border-light); border-radius: var(--radius-md); transition: all 0.3s ease; cursor: pointer; }
+.payment-card.active { border-color: var(--blue-main); box-shadow: var(--shadow-hover); background: white; }
+.payment-card i { font-size: 1.5rem; }
+
+/* MESOB Style Contact Card */
+.contact-info-card { background: var(--blue-bg); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+.contact-item { display: flex; align-items: flex-start; gap: 0.75rem; }
+.contact-icon { background: white; color: var(--blue-main); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid var(--border-light); }
+.contact-text h4 { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.2rem; }
+.contact-text p { font-weight: 600; color: var(--text-main); }
+
+/* Footer Styles */
+.app-footer-simple { background: #0f172a; color: #cbd5e1; padding: 3rem 2rem 1rem; margin-top: 2rem; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+.footer-logo-row { display: flex; align-items: center; gap: 0.6rem; color: white; font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem; }
+.footer-logo { width: 32px; height: 32px; object-fit: contain; }
+.footer-desc { font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem; }
+.footer-socials { display: flex; gap: 1rem; }
+.footer-socials a { color: #94a3b8; font-size: 1.25rem; }
+.footer-nav-col h4 { color: white; margin-bottom: 0.75rem; font-size: 0.95rem; }
+.footer-nav-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-nav-col a { color: #94a3b8; text-decoration: none; font-size: 0.9rem; }
+.footer-nav-col a:hover { color: white; }
+.footer-contact-col p { font-size: 0.9rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.footer-bottom-bar { border-top: 1px solid #1e293b; padding-top: 1rem; display: flex; justify-content: space-between; font-size: 0.8rem; }
+
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .footer-bottom-bar { flex-direction: column; gap: 0.5rem; text-align: center; }
 }
 
-/* Responsive */
 @media (min-width: 768px) {
   .main-wrapper { max-width: 1200px; margin: 0 auto; padding: 2rem; }
   .header-hero-card { padding: 3.5rem 2.25rem; }
@@ -269,18 +376,6 @@ body.app-layout {
   .uber-hero-right { justify-content: center; }
 }
 
-/* Footer */
-.app-footer-simple {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 2rem;
-  background: #0f172a;
-  color: #cbd5e1;
-  font-size: 0.9rem;
-  margin-top: 2rem;
-}
-.footer-link { color: #cbd5e1; text-decoration: underline; cursor: pointer; font-weight: 700; }
 .modal-large { max-width: 750px; max-height: 85vh; display: flex; flex-direction: column; }
 .tc-content-body { overflow-y: auto; padding-right: 0.5rem; font-size: 0.9rem; line-height: 1.6; color: #334155; }
 .tc-content-body h4 { margin-top: 1.25rem; color: #0f172a; font-size: 1rem; }
@@ -290,7 +385,6 @@ body.app-layout {
 </head>
 <body class="app-layout">
 
-  <!-- Top Sticky Navigation Bar -->
   <header class="top-nav-bar">
     <button class="menu-toggle-btn" id="menu-toggle-btn" aria-label="Toggle Sidebar Menu">
       <i class="fa-solid fa-bars"></i>
@@ -301,10 +395,8 @@ body.app-layout {
     </div>
   </header>
 
-  <!-- Dark Blurred Overlay -->
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-  <!-- Collapsible Left Sidebar -->
   <aside class="left-sidebar" id="left-sidebar">
     <div class="sidebar-brand">
       <div class="brand-title">
@@ -316,6 +408,7 @@ body.app-layout {
 
     <nav class="sidebar-menu">
       <a href="#" class="nav-item active" data-view="home">🏠 <span>Home</span></a>
+      <a href="#" class="nav-item" data-view="about">ℹ️ <span>About Us</span></a>
       <a href="#" class="nav-item" data-view="routes">🗺️ <span>All Routes</span></a>
       <a href="#" class="nav-item" data-view="planner">🧮 <span>Trip Planner</span></a>
       <a href="#" class="nav-item" data-view="favorites">🔖 <span>Favorites</span></a>
@@ -330,7 +423,6 @@ body.app-layout {
     </div>
   </aside>
 
-  <!-- Main Content Area -->
   <div class="main-wrapper">
     <header class="header-hero-card">
       <div class="hero-content">
@@ -342,7 +434,6 @@ body.app-layout {
       </div>
     </header>
 
-    <!-- UBER-STYLE HERO SECTION -->
     <section class="uber-hero-section">
       <div class="uber-hero-left">
         <h1 class="uber-hero-title">Your daily journey, elevated.</h1>
@@ -357,12 +448,29 @@ body.app-layout {
       </div>
     </section>
 
-    <!-- FUNCTIONAL AUTH MODAL -->
+    <!-- About Us Section -->
+    <section class="about-section view-section" id="section-about">
+      <h2>About Us</h2>
+      <div class="about-grid">
+        <div class="about-card">
+          <h3>About Us</h3>
+          <p>Sheger Transit is a digital mobility platform built to simplify daily commutes across Addis Ababa. We combine live transit mapping, smart route planning, and integrated digital ticketing into a single, intuitive hub tailored specifically for the modern commuter.</p>
+        </div>
+        <div class="about-card">
+          <h3>Our Vision</h3>
+          <p>To create a seamlessly connected, fully cashless public transportation network where every passenger can navigate the city with absolute confidence, zero friction, and zero guesswork.</p>
+        </div>
+        <div class="about-card">
+          <h3>Our Mission</h3>
+          <p>To empower commuters by providing real-time bus schedules, smart routing, and direct digital pass booking through local platforms like TeleBirr, transforming daily transit into a highly reliable and stress-free journey.</p>
+        </div>
+      </div>
+    </section>
+
     <div class="modal-overlay" id="auth-modal">
       <div class="modal-card auth-modal-card">
         <div class="modal-header">
           <h3>Welcome to Sheger Transit</h3>
-          <!-- FIXED: Correct ID for closing modal -->
           <button class="close-btn" id="close-auth-modal">&times;</button>
         </div>
         <div class="modal-body auth-body">
@@ -393,6 +501,7 @@ body.app-layout {
     </div>
 
     <main class="content-area">
+      <!-- Section: Trip Planner (Bigger) -->
       <section class="planner-section view-section" id="section-planner">
         <h2>Fare Calculator & Trip Planner</h2>
         <div class="planner-controls">
@@ -435,18 +544,19 @@ body.app-layout {
         <div id="history-container" style="margin-top: 1rem;"></div>
       </section>
 
+      <!-- Payment Section (Interactive) -->
       <section class="payment-section view-section hidden" id="section-payment">
         <h2>💳 Payment Methods</h2>
         <p style="color: var(--text-muted);">Manage your primary digital payment options for Sheger passes.</p>
         <div class="payment-grid">
-          <div class="payment-card active">
+          <div class="payment-card" id="card-telebirr">
             <i class="fa-solid fa-mobile-screen-button" style="font-size: 1.5rem; color: #1d4ed8;"></i>
             <div>
               <strong>TeleBirr</strong>
               <p style="font-size: 0.8rem; color: var(--text-muted);">Primary Wallet</p>
             </div>
           </div>
-          <div class="payment-card">
+          <div class="payment-card" id="card-cbe">
             <i class="fa-solid fa-building-columns" style="font-size: 1.5rem; color: #15803d;"></i>
             <div>
               <strong>CBE Birr</strong>
@@ -456,8 +566,42 @@ body.app-layout {
         </div>
       </section>
 
+      <!-- Support Section (MESOB Style Card + Form) -->
       <section class="support-section view-section hidden" id="section-support">
-        <h2>💬 Support & Message Inquiry</h2>
+        <h2>💬 Support & Inquiry</h2>
+        
+        <!-- Address / Contact Info Card -->
+        <div class="contact-info-card">
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="contact-text">
+              <h4>Address</h4>
+              <p>Megenagna, Addis Ababa, Ethiopia</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fa-regular fa-clock"></i></div>
+            <div class="contact-text">
+              <h4>Operating Hours</h4>
+              <p>Monday – Saturday: 8:00 AM – 6:00 PM</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+            <div class="contact-text">
+              <h4>Contact</h4>
+              <p>Phone: 0112345678</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div class="contact-text">
+              <h4>Email</h4>
+              <p>ShegerTransit.et.com</p>
+            </div>
+          </div>
+        </div>
+
         <form id="support-form" style="margin-top: 1rem;">
           <div class="form-group">
             <label for="sup-name">Your Name</label>
@@ -520,16 +664,14 @@ body.app-layout {
       <div class="modal-body tc-content-body">
         <p class="tc-date"><strong>Last Updated:</strong> August 30, 2026</p>
         <h4>1. General Provisions</h4>
-        <p>This document (the "Terms") constitutes a contractual agreement between you, the passenger ("you" or "Passenger"), and Sheger Transit ("we," "us," "our," or the "Company") regarding the use of our services, including ticket purchases, cancellations, and refunds.</p>
-        <p>By purchasing a ticket, visiting our website, or using our services, you acknowledge that you have read, understood, and agree to be bound by all terms of this Policy. If you do not agree with any part of these Terms, please refrain from purchasing tickets or using our services.</p>
+        <p>This document (the "Terms") constitutes a contractual agreement between you, the passenger ("you" or "Passenger"), and Sheger Transit ("we," "us," "our," or the "Company").</p>
         <h4>2. Consumer Rights</h4>
         <p>Under Ethiopian law, particularly the Trade Competition and Consumer Protection Proclamation No. 813/2013, consumers have the right to:</p>
         <ul>
           <li>Receive clear and transparent information regarding contract terms and cancellation policies;</li>
           <li>Request repair, re-service, or a refund if the service provided is defective or not rendered as agreed;</li>
-          <li>Seek compensation from the Federal Trade Competition and Consumer Protection Authority or relevant judicial bodies if the Company fails to fulfill its refund or replacement obligations.</li>
+          <li>Seek compensation from the Federal Trade Competition and Consumer Protection Authority.</li>
         </ul>
-        <p>We are committed to complying with these legal requirements, and this Policy clearly defines your cancellation and refund rights accordingly.</p>
         <h4>3. Passenger Cancellation and Refund Conditions</h4>
         <h5>3.1 Cancellation Initiated by the Passenger</h5>
         <p><strong>3.1.1 More Than 24 Hours Before Departure:</strong> Full refund of ticket price.</p>
@@ -538,9 +680,9 @@ body.app-layout {
         <p><strong>3.1.4 No-Show:</strong> Failure to arrive at departure point without prior cancellation results in no refund.</p>
         <h5>3.2 Cancellation or Change Initiated by Sheger Transit</h5>
         <p><strong>3.2.1 Company-Initiated Cancellation:</strong> Entitled to a full refund or free rebooking.</p>
-        <p><strong>3.2.2 Significant Schedule Changes:</strong> Delays exceeding 2 hours or date changes entitle passenger to full refund or schedule acceptance.</p>
+        <p><strong>3.2.2 Significant Schedule Changes:</strong> Delays exceeding 2 hours or date changes entitle passenger to full refund.</p>
         <h5>3.3 Force Majeure</h5>
-        <p>In unforeseen circumstances beyond reasonable control (natural disasters, government restrictions, war, epidemics), Sheger Transit reserves sole discretion on refund/rebooking decisions.</p>
+        <p>In unforeseen circumstances beyond reasonable control, Sheger Transit reserves sole discretion on refund/rebooking decisions.</p>
         <h4>4. Non-Refundable Circumstances</h4>
         <ul>
           <li>Ticket already used or partially used</li>
@@ -554,8 +696,7 @@ body.app-layout {
         <h4>5. Refund Procedure and Processing Time</h4>
         <p><strong>5.1 How to Apply:</strong> Online via official website, In-Person at customer service center, or via Customer Support hotline/email.</p>
         <p><strong>5.2 Required Information:</strong> Full name, contact info, ticket/order ID, trip details, and cancellation reason.</p>
-        <p><strong>5.3 Processing Time:</strong> Complete applications processed within 10 business days via original payment method.</p>
-        <p><strong>5.4 Delays:</strong> Company is not liable for payment gateway/bank delays but will assist tracking.</p>
+        <p><strong>5.3 Processing Time:</strong> Complete applications processed within 10 business days.</p>
         <h4>6. Rebooking (Change of Schedule) Policy</h4>
         <ul>
           <li><strong>>24 hours before departure:</strong> 1 free rebooking</li>
@@ -565,9 +706,9 @@ body.app-layout {
         <h4>7. Service Defects and Complaints</h4>
         <p>Failure to provide agreed service entitles passengers to full refund or free rebooking. Quality complaints are answered within 15 business days.</p>
         <h4>8. Limitation of Liability</h4>
-        <p>Total liability is strictly limited to the actual fare paid. No liability for indirect or consequential losses.</p>
+        <p>Total liability is strictly limited to the actual fare paid.</p>
         <h4>9. Dispute Resolution</h4>
-        <p>Disputes are addressed within 15 business days. Escalation is available via the Federal Trade Competition and Consumer Protection Authority or Ethiopian Courts.</p>
+        <p>Disputes are addressed within 15 business days. Escalation is available via the Federal Trade Competition and Consumer Protection Authority.</p>
         <h4>10. Policy Amendments</h4>
         <p>Amendments take effect immediately upon website posting.</p>
         <h4>11. Contact Information</h4>
@@ -578,12 +719,50 @@ body.app-layout {
     </div>
   </div>
 
+  <!-- 3-Column Footer -->
   <footer class="app-footer-simple">
-    <div class="footer-left">
-      <p>&copy; 2026 Sheger Transit.</p>
+    <div class="footer-grid">
+      <!-- Column 1: Logo + Description + Socials -->
+      <div>
+        <div class="footer-logo-row">
+          <img src="shegerlogo.png" alt="Sheger Transit" class="footer-logo">
+          <span>Sheger Transit</span>
+        </div>
+        <p class="footer-desc">Launched in 2026, Sheger Transit is dedicated to transforming daily commutes across Addis Ababa. By providing real-time transit data and seamless digital pass booking, we ensure every passenger can navigate the city safely and confidently.</p>
+        <div class="footer-socials">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <!-- Column 2: Information Links -->
+      <div class="footer-nav-col">
+        <h4>Information</h4>
+        <ul>
+          <li><a href="#" class="footer-nav-link" data-view="home">Home</a></li>
+          <li><a href="#" class="footer-nav-link" data-view="about">About Us</a></li>
+          <li><a href="#" class="footer-nav-link" data-view="support">Contact Us</a></li>
+          <li><a href="#" id="open-tc-footer">Terms & Conditions</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Contact Info -->
+      <div class="footer-contact-col">
+        <h4>Contact Info</h4>
+        <p><i class="fa-solid fa-phone"></i> Tel: 0112345678</p>
+        <p><i class="fa-solid fa-envelope"></i> ShegerTransit.et.com</p>
+        <p><i class="fa-solid fa-location-dot"></i> Megenagna, Addis Ababa, Ethiopia</p>
+      </div>
     </div>
-    <div class="footer-right">
-      <a href="#" id="open-tc-footer" class="footer-link">Terms and conditions</a>
+
+    <!-- Bottom Bar: Only Terms and conditions -->
+    <div class="footer-bottom-bar">
+      <p>&copy; 2026 Sheger Transit. All rights reserved.</p>
+      <div>
+        <a href="#" id="open-tc-footer" class="footer-link">Terms and conditions</a>
+      </div>
     </div>
   </footer>
 
@@ -640,6 +819,7 @@ body.app-layout {
 
     function updateViewVisibility() {
       const views = [
+        { id: "#section-about", view: ["home", "about"] },
         { id: "#section-planner", view: ["home", "planner"] },
         { id: "#section-map", view: ["home"] },
         { id: "#section-routes", view: ["home", "routes"] },
@@ -652,8 +832,14 @@ body.app-layout {
       views.forEach(v => {
         const el = document.querySelector(v.id);
         if (!el) return;
-        if (v.view.includes(state.activeView)) el.classList.remove("hidden");
-        else el.classList.add("hidden");
+        if (v.view.includes(state.activeView)) {
+          el.classList.remove("hidden");
+          el.classList.remove('animate-in');
+          void el.offsetWidth; // trigger reflow
+          el.classList.add('animate-in');
+        } else {
+          el.classList.add("hidden");
+        }
       });
     }
 
@@ -701,7 +887,6 @@ body.app-layout {
       }
     }
 
-    // Sidebar Drawer Handlers
     const sidebar = document.querySelector("#left-sidebar");
     const overlay = document.querySelector("#sidebar-overlay");
     function toggleSidebar() {
@@ -712,8 +897,8 @@ body.app-layout {
     document.querySelector("#close-sidebar-btn")?.addEventListener("click", toggleSidebar);
     overlay?.addEventListener("click", toggleSidebar);
 
-    // Navigation View Switcher
-    document.querySelectorAll(".sidebar-menu .nav-item").forEach(item => {
+    // Navigation View Switcher (Scrolls to top of section)
+    document.querySelectorAll(".sidebar-menu .nav-item, .footer-nav-link").forEach(item => {
       item.addEventListener("click", (e) => {
         e.preventDefault();
         document.querySelectorAll(".sidebar-menu .nav-item").forEach(i => i.classList.remove("active"));
@@ -721,25 +906,17 @@ body.app-layout {
         state.activeView = item.dataset.view;
         render();
         toggleSidebar();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     });
 
-    // =========================================
-    // MODAL & LOGIN FUNCTIONALITY (FIXED)
-    // =========================================
     const authModal = document.querySelector("#auth-modal");
     const bookingModal = document.querySelector("#booking-modal");
 
-    // Open Modal (Sidebar Button)
     document.querySelector("#signin-btn")?.addEventListener("click", () => authModal?.classList.add("active"));
-    
-    // Open Modal (Hero Button)
     document.querySelector("#hero-login-btn")?.addEventListener("click", () => authModal?.classList.add("active"));
-
-    // FIXED: Close Modal (X Button)
     document.querySelector("#close-auth-modal")?.addEventListener("click", () => authModal?.classList.remove("active"));
 
-    // Functional Login Logic
     document.querySelector("#hero-continue-btn")?.addEventListener("click", () => {
       const email = document.querySelector("#hero-email").value;
       const password = document.querySelector("#hero-password").value;
@@ -753,13 +930,9 @@ body.app-layout {
       document.querySelector("#signin-btn").textContent = "👤 Logged In";
     });
 
-    // Booking Modal Handlers
     document.querySelector("#open-booking-btn")?.addEventListener("click", () => bookingModal?.classList.add("active"));
     document.querySelector("#close-booking-modal")?.addEventListener("click", () => bookingModal?.classList.remove("active"));
 
-    // =========================================
-
-    // Trip Planner Calculation
     document.querySelector("#calculate-btn")?.addEventListener("click", () => {
       const origin = document.querySelector("#origin-select").value;
       const destination = document.querySelector("#destination-select").value;
@@ -773,7 +946,6 @@ body.app-layout {
       else resultDiv.innerHTML = `No direct bus found between ${origin} and ${destination}.`;
     });
 
-    // Search & Favorites
     document.querySelector("#search")?.addEventListener("input", (e) => {
       state.search = e.target.value;
       render();
@@ -791,7 +963,6 @@ body.app-layout {
       render();
     });
 
-    // Checkout Order Handler
     document.querySelector("#checkout-form")?.addEventListener("submit", (e) => {
       e.preventDefault();
       const name = document.querySelector("#passenger-name").value;
@@ -817,14 +988,12 @@ body.app-layout {
       alert(`Pass booked successfully! Order #${order.id}`);
     });
 
-    // Support Form Handler
     document.querySelector("#support-form")?.addEventListener("submit", (e) => {
       e.preventDefault();
       alert("Thank you for reaching out! Your inquiry has been submitted.");
       e.target.reset();
     });
 
-    // Terms & Conditions Modal
     const tcModal = document.querySelector("#tc-modal");
     const openTcBtn = document.querySelector("#open-tc-footer");
     const closeTcBtn = document.querySelector("#close-tc-modal");
@@ -834,12 +1003,23 @@ body.app-layout {
     });
     closeTcBtn?.addEventListener("click", () => tcModal?.classList.remove("active"));
 
-    // Google Login Simulation
+    // Payment Interactive: TeleBirr
+    document.querySelector("#card-telebirr")?.addEventListener("click", () => {
+      const phone = prompt("Please enter your TeleBirr phone number (e.g., 09xxxxxxxx):");
+      if (phone) {
+        alert("Redirecting to TeleBirr app...");
+      }
+    });
+
+    // Payment Interactive: CBE
+    document.querySelector("#card-cbe")?.addEventListener("click", () => {
+      alert("CBE Account: 100001232*****\n\nPlease add your payment screenshot for CBE.");
+    });
+
     document.querySelector("#google-login-btn")?.addEventListener("click", () => {
       alert("Redirecting to Google Sign-In...");
     });
 
-    // Apple Login Simulation
     document.querySelector("#apple-login-btn")?.addEventListener("click", () => {
       alert("Redirecting to Apple Sign-In...");
     });
