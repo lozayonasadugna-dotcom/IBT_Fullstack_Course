@@ -1,0 +1,46 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #12151e;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.app-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  color: #a0a0a0;
+  margin-top: 0;
+}
+
+.dish {
+  margin-top: 2rem;
+}
+
+.dish h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+  color: #e0e0e0;
+}
+
+.dish p {
+  color: #888888;
+  margin-top: 0;
+}
