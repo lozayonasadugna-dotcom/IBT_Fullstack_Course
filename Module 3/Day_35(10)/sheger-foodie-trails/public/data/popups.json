@@ -1,0 +1,122 @@
+[
+  {
+    "id": "popup-01",
+    "title": "Bole Midnight Jazz & Coffee Cupping",
+    "neighborhood": "Bole",
+    "date": "2026-10-05",
+    "time": "20:00 EAT",
+    "price": "1,200 ETB",
+    "image": "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1000&auto=format&fit=crop",
+    "description": "An exclusive multi-sensory evening pairing single-origin artisanal Ethiopian roasts with live jazz improvisations.",
+    "host": "Master Barista Henok & Ethio-Jazz Ensemble",
+    "availableSeats": 12
+  },
+  {
+    "id": "popup-02",
+    "title": "Kazanchis Secret Gourmet Gursha Experience",
+    "neighborhood": "Kazanchis",
+    "date": "2026-10-12",
+    "time": "18:30 EAT",
+    "price": "2,500 ETB",
+    "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1000&auto=format&fit=crop",
+    "description": "A 5-course modernized feast celebrating traditional recipes infused with modern culinary techniques.",
+    "host": "Chef Bethlehem & Guest Culinary Artists",
+    "availableSeats": 6
+  },
+  {
+    "id": "popup-03",
+    "title": "Entoto Sunset Rooftop Tej & Wine Tasting",
+    "neighborhood": "Entoto",
+    "date": "2026-10-18",
+    "time": "17:00 EAT",
+    "price": "1,800 ETB",
+    "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1000&auto=format&fit=crop",
+    "description": "Panoramic mountain views paired with artisanal house-aged honey wines and organic grazing boards.",
+    "host": "Entoto Botanical Society",
+    "availableSeats": 10
+  },
+  {
+    "id": "popup-04",
+    "title": "Old Piassa Heritage Pastry & Espresso Salon",
+    "neighborhood": "Piassa",
+    "date": "2026-10-25",
+    "time": "16:00 EAT",
+    "price": "950 ETB",
+    "image": "https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=1000&auto=format&fit=crop",
+    "description": "Step inside a restored 1950s villa for handcrafted Mille-feuille, spiced tea blends, and historic storytelling.",
+    "host": "Piassa Culinary Guild",
+    "availableSeats": 8
+  },
+  {
+    "id": "popup-05",
+    "title": "Sarbet Organic Farm-to-Table Candlelight Dinner",
+    "neighborhood": "Sarbet",
+    "date": "2026-11-02",
+    "time": "19:00 EAT",
+    "price": "3,100 ETB",
+    "image": "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1000&auto=format&fit=crop",
+    "description": "An intimate courtyard feast crafted entirely with locally harvested highlands produce and wood-fired flatbreads.",
+    "host": "Chef Yared & Sheger Greens",
+    "availableSeats": 15
+  },
+  {
+    "id": "popup-06",
+    "title": "Old Airport Speakeasy Cheese & Charcuterie Night",
+    "neighborhood": "Old Airport",
+    "date": "2026-11-08",
+    "time": "19:30 EAT",
+    "price": "2,200 ETB",
+    "image": "https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=1000&auto=format&fit=crop",
+    "description": "A hidden cellar gathering showcasing aged Ethiopian highland cheeses, craft charcuterie, and fine beverage pairings.",
+    "host": "The Artisan Cellar",
+    "availableSeats": 8
+  },
+  {
+    "id": "popup-07",
+    "title": "CMC Firepit & Slow-Cooked Smokehouse Supper",
+    "neighborhood": "CMC",
+    "date": "2026-11-14",
+    "time": "18:00 EAT",
+    "price": "2,800 ETB",
+    "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1000&auto=format&fit=crop",
+    "description": "An open-air evening featuring 12-hour wood-smoked meats, charred spiced vegetables, and live acoustic music.",
+    "host": "CMC Smokehouse Crew",
+    "availableSeats": 14
+  },
+  {
+    "id": "popup-08",
+    "title": "Summit Garden Botanical Tea & Seafood Tasting",
+    "neighborhood": "Summit",
+    "date": "2026-11-20",
+    "time": "15:30 EAT",
+    "price": "1,950 ETB",
+    "image": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=1000&auto=format&fit=crop",
+    "description": "Set inside a private greenhouse, featuring citrus-infused raw catches, botanical brews, and delicate herbal desserts.",
+    "host": "Summit Botanical Lab",
+    "availableSeats": 10
+  },
+  {
+    "id": "popup-09",
+    "title": "Meskel Square Lanterns & Gourmet Street Fusion",
+    "neighborhood": "Meskel Square",
+    "date": "2026-11-27",
+    "time": "20:00 EAT",
+    "price": "1,400 ETB",
+    "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1000&auto=format&fit=crop",
+    "description": "An energetic urban supper celebrating reinvented street food classics served under glowing paper lanterns.",
+    "host": "Sheger Street Collective",
+    "availableSeats": 20
+  },
+  {
+    "id": "popup-10",
+    "title": "Kazanchis Spice & Fermentation Tasting Room",
+    "neighborhood": "Kazanchis",
+    "date": "2026-12-04",
+    "time": "18:30 EAT",
+    "price": "2,100 ETB",
+    "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1000&auto=format&fit=crop",
+    "description": "Explore complex flavor profiles featuring house-fermented chilies, aged spices, and wild honey reductions.",
+    "host": "Ferment & Spice Lab",
+    "availableSeats": 9
+  }
+]

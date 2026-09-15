@@ -1,0 +1,29 @@
+[
+  {
+    "id": "trail-1",
+    "title": "Bole Artisan Coffee & Roastery Walk",
+    "category": "Specialty Coffee",
+    "duration": "3 Hours",
+    "stops": 4,
+    "image": "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80",
+    "description": "Experience hand-picked specialty roasters, traditional Jebena ceremonies, and gourmet pastry pairings across Bole."
+  },
+  {
+    "id": "trail-2",
+    "title": "Old Kazanchis Heritage Supper Trail",
+    "category": "Culture & Heritage",
+    "duration": "4 Hours",
+    "stops": 5,
+    "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80",
+    "description": "A curated evening tour through iconic culinary landmarks, artisan spice blenders, and honey wine (Tej) houses."
+  },
+  {
+    "id": "trail-3",
+    "title": "Entoto Hills Botanical Dining Circuit",
+    "category": "Nature & Organic",
+    "duration": "5 Hours",
+    "stops": 3,
+    "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+    "description": "Scenic outdoor dining experiences paired with local herbal teas and farm-to-table pop-up lunches on Entoto."
+  }
+]

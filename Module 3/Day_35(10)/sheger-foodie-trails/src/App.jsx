@@ -11,7 +11,7 @@ import Trails from "./pages/Trails";
 import PopUpDetail from "./pages/PopUpDetail";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
-import Checkout from "./pages/Checkout";
+import Checkout from "./pages/checkout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useFavoritesStore } from "./store/useFavoritesStore";
 import { Heart, Calendar, MapPin, ArrowRight, Search, Filter, X, Sparkles, Utensils, Clock, Users } from "lucide-react";
