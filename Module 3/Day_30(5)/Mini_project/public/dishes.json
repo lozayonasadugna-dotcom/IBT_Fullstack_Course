@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "Doro Wat",
+    "category": "Main",
+    "price": 450,
+    "spicy": true
+  },
+  {
+    "id": 2,
+    "name": "Beyaynetu",
+    "category": "Vegan",
+    "price": 250,
+    "spicy": false
+  },
+  {
+    "id": 3,
+    "name": "Tibs",
+    "category": "Grill",
+    "price": 400,
+    "spicy": true
+  },
+  {
+    "id": 4,
+    "name": "Shiro Wat",
+    "category": "Vegan",
+    "price": 200,
+    "spicy": false
+  },
+  {
+    "id": 5,
+    "name": "Baklava",
+    "category": "Dessert",
+    "price": 150,
+    "spicy": false
+  },
+  {
+    "id": 6,
+    "name": "Kitfo",
+    "category": "Main",
+    "price": 480,
+    "spicy": true
+  }
+]
