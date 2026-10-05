@@ -18,7 +18,7 @@ export const metadata = {
   title: "Addis Eats - Traditional Ethiopian Food",
   description: "Experience authentic Ethiopian cuisine delivered to your door.",
   icons: {
-    icon: "/Addis Eats Ethiopian Food Emblem.png",
+    icon: "/logo.png",
   },
 };
 
