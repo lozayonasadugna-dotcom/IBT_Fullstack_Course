@@ -10,3 +10,4 @@ Welcome to my repository for the **IBT Fullstack Course**! This repository showc
 IBT_Fullstack_Course/
 ├── Module 1/    # Fundamentals: HTML5, CSS3, Git & Version Control
 └── Module 2/    # Interactive Web Design, Modern Layouts & Full-Stack Concepts
+└── Module 3/    # Advanced Full-Stack Development: React, Next.js App Router & Deployment
