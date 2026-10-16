@@ -1,4 +1,41 @@
+import { useEffect, useRef, useState } from 'react';
+
+const educationCards = [
+  {
+    title: 'Technical & Digital Skills',
+    content: (
+      <ul>
+        <li><strong>Web Development:</strong> HTML5, CSS3, JavaScript, React, Next.js, Python</li>
+        <li><strong>Developer Tools:</strong> Git, GitHub, VS Code</li>
+        <li><strong>Design Tools:</strong> Graphic Design, UI/UX, Canva, Digital Layouts</li>
+        <li><strong>AI Engineering:</strong> AI Prompt Engineering</li>
+      </ul>
+    ),
+  },
+  {
+    title: 'Leadership & Tutoring',
+    content: (
+      <ol className="education-leadership-list">
+        <li><strong>Academic Tutoring:</strong> Over 8 years tutoring National Curriculum (Grades 4–12).</li>
+        <li><strong>EHPSA Leadership:</strong> Vice Director for EHPSA Hawassa Volunteer Branch.</li>
+        <li><strong>Media Leadership:</strong> Marketing Team Content Leader & Graduation Graphic Designer.</li>
+      </ol>
+    ),
+  },
+];
+
 export default function Education() {
+  const [selectedCard, setSelectedCard] = useState(null);
+  const dialogRef = useRef(null);
+
+  useEffect(() => {
+    if (selectedCard && !dialogRef.current.open) {
+      dialogRef.current.showModal();
+    }
+  }, [selectedCard]);
+
+  const closeDialog = () => dialogRef.current?.close();
+
   return (
     <main id="education">
       <section>
@@ -39,26 +76,41 @@ export default function Education() {
         </table>
       </section>
 
-      <section className="cards-grid">
-        <article className="info-card">
-          <h3>Technical & Digital Skills</h3>
-          <ul>
-            <li><strong>Web Development:</strong> HTML5, CSS3, JavaScript, Python</li>
-            <li><strong>Developer Tools:</strong> Git, GitHub, VS Code</li>
-            <li><strong>Design Tools:</strong> Graphic Design, UI/UX, Canva, Digital Layouts</li>
-            <li><strong>AI Engineering:</strong> AI Prompt Engineering</li>
-          </ul>
-        </article>
-
-        <article className="info-card">
-          <h3>Leadership & Tutoring</h3>
-          <ol style={{ paddingLeft: '1.2rem' }}>
-            <li style={{ marginBottom: '0.75rem' }}><strong>Academic Tutoring:</strong> Over 8 years tutoring National Curriculum (Grades 4–12).</li>
-            <li style={{ marginBottom: '0.75rem' }}><strong>EHPSA Leadership:</strong> Vice Director for EHPSA Hawassa Volunteer Branch.</li>
-            <li style={{ marginBottom: '0.75rem' }}><strong>Media Leadership:</strong> Marketing Team Content Leader & Graduation Graphic Designer.</li>
-          </ol>
-        </article>
+      <section className="cards-grid education-cards">
+        {educationCards.map((card) => (
+          <article className="info-card project-card" key={card.title}>
+            <button
+              className="project-card-trigger"
+              type="button"
+              onClick={() => setSelectedCard(card)}
+              aria-label={`View details for ${card.title}`}
+            >
+              <span>{card.title}</span>
+              <span className="project-card-prompt">View details <span aria-hidden="true">↗</span></span>
+            </button>
+          </article>
+        ))}
       </section>
+
+      <dialog
+        className="project-dialog"
+        ref={dialogRef}
+        aria-labelledby="education-dialog-title"
+        onClose={() => setSelectedCard(null)}
+        onClick={(event) => {
+          if (event.target === dialogRef.current) closeDialog();
+        }}
+      >
+        {selectedCard && (
+          <div className="project-dialog-content">
+            <button className="project-dialog-close" type="button" onClick={closeDialog} aria-label="Close details">
+              ×
+            </button>
+            <h3 id="education-dialog-title">{selectedCard.title}</h3>
+            <div className="about-dialog-details">{selectedCard.content}</div>
+          </div>
+        )}
+      </dialog>
     </main>
   );
 }

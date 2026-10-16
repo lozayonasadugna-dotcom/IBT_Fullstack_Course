@@ -127,7 +127,7 @@ export default function Home() {
 
       <section className="stats-grid">
         <div className="stat-card">
-          <span className="stat-number">20+</span><span className="stat-label">Projects Completed</span>
+          <span className="stat-number">40+</span><span className="stat-label">Projects Completed</span>
         </div>
         <div className="stat-card">
           <span className="stat-number">6+</span><span className="stat-label">Certificates Earned</span>
