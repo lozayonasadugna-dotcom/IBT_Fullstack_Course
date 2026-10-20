@@ -123,7 +123,7 @@ export default function About() {
 
         <div className="cards-grid">
           {aboutCards.map((card) => (
-            <article className="info-card project-card" key={card.title}>
+            <article className="info-card project-card about-info-card" key={card.title}>
               <button
                 className="project-card-trigger"
                 type="button"

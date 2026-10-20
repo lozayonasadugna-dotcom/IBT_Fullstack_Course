@@ -40,10 +40,21 @@ const projects = [
   },
   {
     title: 'Addis Eats',
-    description: 'A React data-driven application focused on Addis Ababa food and dining.',
-    technologies: 'React, JavaScript',
-    link: 'https://ibt-fullstack-course-ybu4.vercel.app/',
+    image: '/addis.png',
+    imageAlt: 'Addis Eats food and menu project',
+    description: 'A foundational Next.js project for exploring food and menus.',
+    technologies: 'Next.js, React, JavaScript',
+    link: 'https://addis-eats-next-uo58.vercel.app/',
     linkLabel: 'Visit Addis Eats',
+  },
+  {
+    title: 'Sheger Foodie',
+    image: '/sheger.png',
+    imageAlt: 'Sheger Foodie local food trails project',
+    description: 'A React-based web application designed to curate culinary experiences across Addis Ababa by showcasing local food trails, dynamic event listings, and a booking system for secret pop-up suppers. Built with dynamic routing, Zustand for state management, persistent local storage, custom SVG branding, and theme switching (Dark/Light mode), it offers a seamless and responsive platform for food enthusiasts to discover and save their favorite local dining spots.',
+    technologies: 'React, Zustand, Dynamic Routing, Local Storage',
+    link: 'https://ibt-fullstack-course-ybu4.vercel.app/',
+    linkLabel: 'Visit Sheger Foodie',
   },
 ];
 
@@ -69,7 +80,11 @@ export default function Projects() {
 
         <div className="cards-grid project-grid">
           {projects.map((project) => (
-            <article className="info-card project-card" key={project.title}>
+            <article
+              className="info-card project-card"
+              key={project.title}
+              style={{ '--project-image': `url("${project.image || '/background.jpg'}")` }}
+            >
               <button
                 className="project-card-trigger"
                 type="button"

@@ -78,7 +78,7 @@ export default function Education() {
 
       <section className="cards-grid education-cards">
         {educationCards.map((card) => (
-          <article className="info-card project-card" key={card.title}>
+          <article className="info-card project-card education-info-card" key={card.title}>
             <button
               className="project-card-trigger"
               type="button"
