@@ -1,16 +1,37 @@
-# React + Vite
+# Portfolio | Full-Stack React Developer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clean, modern, and responsive developer portfolio showcasing web applications, interactive user interfaces, and full-stack projects built using **React**, **Next.js**, **JavaScript**, **Tailwind CSS**, and modern web technologies.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Tech Stack & Tools
 
-## React Compiler
+- **Frontend:** React.js, Next.js, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Bootstrap
+- **State & Storage:** Zustand, React Context API, LocalStorage
+- **Backend & APIs:** Node.js, Express, REST APIs, Dynamic API Fetching
+- **Deployment & Version Control:** Git, GitHub, Vercel, VS Code
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🚀 Featured Projects
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 1. Sheger Foodie
+A React-based web application curating culinary experiences and dining adventures across Addis Ababa.
+- **Key Features:** Interactive food trails, dynamic event listings, secret pop-up supper bookings, dark/light theme toggle, and Zustand global state management with persistent local storage.
+- **Tech:** React, Zustand, React Router, CSS Modules / Tailwind
+
+### 2. Sheger Transit
+A web application built to streamline transit route tracking and schedule navigation in Addis Ababa.
+- **Key Features:** Interactive route cards, destination search, map views, and real-time route schedule filtering.
+- **Tech:** JavaScript, HTML5, CSS3 Grid/Flexbox, LocalStorage
+
+### 3. Aura Books
+A responsive e-commerce book catalog and discovery platform.
+- **Key Features:** Real-time search, category filtering, persistent shopping cart/favorites, and clean component-driven design.
+- **Tech:** React, CSS3, Vercel Deployment
+
+### 4. Merkato Smart Shop
+A modern product discovery and online shopping interface tailored for local shoppers.
+- **Key Features:** Responsive CSS grid layouts, search and filter capabilities, and client-side favorites tracking.
+- **Tech:** HTML5, CSS3, JavaScript (ES6+)
+
