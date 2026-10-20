@@ -147,14 +147,14 @@
 /* Tablet and mobile */
 @media screen and (max-width: 900px) {
   .navbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
     padding: 14px 4%;
   }
 
   .navbar-actions {
-    position: relative;
-    z-index: 1;
+    grid-column: 2;
     gap: 8px;
-    margin-left: auto;
   }
 
   .hamburger-btn {
@@ -166,7 +166,7 @@
     background-color: var(--card-bg);
   }
 
-  .navbar-navigation {
+  .navbar .navbar-navigation {
     display: none;
     position: absolute;
     top: 100%;
@@ -182,8 +182,9 @@
     border-top: 1px solid rgba(128, 128, 128, 0.2);
   }
 
-  .navbar-navigation.menu-open {
+  .navbar .navbar-navigation.menu-open {
     display: flex;
+    z-index: 1001;
   }
 
   .navbar-links {
