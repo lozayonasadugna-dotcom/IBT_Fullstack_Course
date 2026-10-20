@@ -1,44 +1,57 @@
 import { useState } from 'react';
+import './Navbar.css';
 
 export default function Navbar({ isDarkMode, toggleTheme }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // Back to original working URL, only changed seed to Sara
-  const avatarUrl = "https://api.dicebear.com/9.x/lorelei/svg?seed=Sara&glassesProbability=100&backgroundColor=7c3aed&hairColor=000000";
+
+  const avatarUrl =
+    'https://api.dicebear.com/9.x/lorelei/svg?seed=Sara&glassesProbability=100&backgroundColor=7c3aed&hairColor=000000';
+
+  const navLinks = [
+    { label: 'Home', href: '#home' },
+    { label: 'About', href: '#about' },
+    { label: 'Education & Skills', href: '#education' },
+    { label: 'Projects', href: '#projects' },
+    { label: 'Contact', href: '#contact' },
+  ];
+
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <img 
-          src={avatarUrl} 
-          alt="Avatar of Loza" 
-          style={{ 
-            width: '42px', 
-            height: '42px', 
-            borderRadius: '50%',
-            objectFit: 'cover',
-            backgroundColor: '#7c3aed'
-          }}
+    <header className="navbar">
+      <div className="navbar-brand">
+        <img
+          src={avatarUrl}
+          alt="Avatar of Loza"
+          className="navbar-avatar"
         />
+
         <div className="logo">LYA.</div>
       </div>
-      
-      <nav id="primary-navigation" className={isMenuOpen ? 'is-open' : ''}>
-        <ul>
-          <li><a href="#home" onClick={() => setIsMenuOpen(false)}>Home</a></li>
-          <li><a href="#about" onClick={() => setIsMenuOpen(false)}>About</a></li>
-          <li><a href="#education" onClick={() => setIsMenuOpen(false)}>Education & Skills</a></li>
-          <li><a href="#projects" onClick={() => setIsMenuOpen(false)}>Projects</a></li>
-          <li><a href="#contact" onClick={() => setIsMenuOpen(false)}>Contact</a></li>
+
+      <nav
+        id="mobile-navigation"
+        className={`navbar-navigation ${isMenuOpen ? 'menu-open' : ''}`}
+        aria-label="Main navigation"
+      >
+        <ul className="navbar-links">
+          {navLinks.map((link) => (
+            <li key={link.href}>
+              <a href={link.href} onClick={closeMenu}>
+                {link.label}
+              </a>
+            </li>
+          ))}
         </ul>
       </nav>
 
-      <div className="header-actions">
-        <button 
-          className="theme-toggle-btn" 
-          onClick={toggleTheme} 
+      <div className="navbar-actions">
+        <button
           type="button"
-          aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+          className="theme-toggle-btn"
+          onClick={toggleTheme}
           title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+          aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
         >
           <div className="theme-toggle-circle">
             {isDarkMode ? '🌙' : '☀️'}
@@ -46,14 +59,16 @@ export default function Navbar({ isDarkMode, toggleTheme }) {
         </button>
 
         <button
-          className="mobile-menu-toggle"
           type="button"
-          aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-          aria-expanded={isMenuOpen}
-          aria-controls="primary-navigation"
+          className={`hamburger-btn ${isMenuOpen ? 'hamburger-active' : ''}`}
           onClick={() => setIsMenuOpen((open) => !open)}
+          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-navigation"
         >
-          <span className="menu-icon" aria-hidden="true" />
+          <span />
+          <span />
+          <span />
         </button>
       </div>
     </header>
