@@ -31,3 +31,6 @@ button { min-width: 44px; padding-inline: 12px; }
 .card .add { margin-top: 12px; }
 .lang-menu { gap: 8px; }
 .panel input { padding: 8px; }
+.notice { min-height: 28px; margin: 0; padding: 8px 20px 0; color: #7a1f1f; font-weight: bold; }
+.cart-list { list-style: none; margin: 0 0 12px; padding: 0; }
+.cart-list li { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 4px 0; }

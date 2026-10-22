@@ -10,6 +10,7 @@ export default function Menu() {
   const [cartOpen, setCartOpen] = useState(false)
   const [langOpen, setLangOpen] = useState(false)
   const [selected, setSelected] = useState(null)
+  const [notice, setNotice] = useState("")
   const dialogRef = useRef(null)
 
   useEffect(() => {
@@ -18,13 +19,29 @@ export default function Menu() {
     if (!cartOpen && dialog.open) dialog.close()
   }, [cartOpen])
 
+  useEffect(() => {
+    if (!notice) return
+    const timer = setTimeout(() => setNotice(""), 2500)
+    return () => clearTimeout(timer)
+  }, [notice])
+
   function addToCart(dish) {
+    if (cart.some((item) => item.id === dish.id)) {
+      setNotice(`${dish.name} is already in your cart`)
+      return
+    }
     setCart((items) => [...items, dish])
+    setNotice(`${dish.name} added to your cart`)
+  }
+
+  function removeFromCart(id) {
+    setCart((items) => items.filter((item) => item.id !== id))
   }
 
   function handleOrderDone() {
     setCart([])
     setCartOpen(false)
+    setNotice("Order placed")
   }
 
   return (
@@ -57,9 +74,17 @@ export default function Menu() {
         </button>
       </header>
 
+      <p className="notice" role="status">{notice}</p>
+
       <main className="grid">
         {dishes.map((dish) => (
-          <DishCard key={dish.id} dish={dish} onAdd={addToCart} onOpen={setSelected} />
+          <DishCard
+            key={dish.id}
+            dish={dish}
+            inCart={cart.some((item) => item.id === dish.id)}
+            onAdd={addToCart}
+            onOpen={setSelected}
+          />
         ))}
       </main>
 
@@ -70,7 +95,24 @@ export default function Menu() {
           Close
         </button>
         <h2>Your order</h2>
-        <p>{cart.length} items</p>
+        {cart.length === 0 ? (
+          <p>Your cart is empty.</p>
+        ) : (
+          <ul className="cart-list">
+            {cart.map((item) => (
+              <li key={item.id}>
+                <span>{item.name} - {item.price} birr</span>
+                <button
+                  type="button"
+                  aria-label={`Remove ${item.name}`}
+                  onClick={() => removeFromCart(item.id)}
+                >
+                  Remove
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
         <OrderForm cart={cart} onDone={handleOrderDone} />
       </dialog>
     </>
