@@ -169,22 +169,27 @@
   .navbar .navbar-navigation {
     display: none;
     position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
+    top: calc(100% + 8px);
+    right: 4%;
+    left: auto;
+    width: min(320px, calc(100vw - 2rem));
+    max-height: calc(100dvh - 90px);
+    overflow-y: auto;
     flex-direction: column;
     align-items: stretch;
     gap: 18px;
-    padding: 22px 5%;
+    padding: 16px;
     background-color: var(--card-bg);
     color: var(--text-dark);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
-    border-top: 1px solid rgba(128, 128, 128, 0.2);
+    border: 1px solid rgba(108, 74, 182, 0.25);
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(20, 12, 40, 0.2);
   }
 
   .navbar .navbar-navigation.menu-open {
     display: flex;
-    z-index: 1001;
+    visibility: visible;
+    z-index: 1100;
   }
 
   .navbar-links {
@@ -232,6 +237,6 @@
   }
 
   .navbar-navigation {
-    padding: 16px 5%;
+    padding: 14px;
   }
 }
