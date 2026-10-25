@@ -33,6 +33,15 @@ export async function POST(request) {
   const phone = String(body?.phone ?? "").trim()
   if (!PHONE.test(phone)) return bad("Enter a valid phone number")
 
+  const fulfillment = body?.fulfillment ?? "pickup"
+  const payment = body?.payment ?? null
+  const address = typeof body?.address === "string" ? body.address.trim() : ""
+  if (!["pickup", "delivery"].includes(fulfillment)) return bad("Choose pickup or delivery")
+  if (fulfillment === "delivery") {
+    if (!["telebirr", "cbe"].includes(payment)) return bad("Choose TeleBirr or CBE for delivery")
+    if (address.length < 5 || address.length > 300) return bad("Enter a valid delivery location")
+  }
+
   const items = Array.isArray(body?.items) ? body.items : []
   if (items.length === 0 || items.length > 20) return bad("Your cart is empty")
 
@@ -55,7 +64,7 @@ export async function POST(request) {
 
   const order = { id, ref, total, items: count }
   store.byKey.set(key, order)
-  store.list.push({ ...order, phone })
+  store.list.push({ ...order, phone, fulfillment, payment, address })
 
   await new Promise((resolve) => setTimeout(resolve, 1500))
   return NextResponse.json(order, { status: 201 })
